@@ -1,4 +1,5 @@
 ﻿using System;
+using WkfSemaphore.Events;
 
 namespace WkfSemaphore
 {
@@ -8,12 +9,14 @@ namespace WkfSemaphore
         private readonly CompetitorViewModel _ao;
         private readonly RelayCommand _reset;
         private readonly StopWatchViewModel _time;
+        private readonly EventManagerViewModel _eventManager;
         private TimeSpan _resetTime;
 
         public SemaphoreViewModel()
         {
-            _aka = new CompetitorViewModel();
-            _ao = new CompetitorViewModel();
+            _eventManager = new EventManagerViewModel();
+            _aka = new CompetitorViewModel(Belt.Aka, _eventManager);
+            _ao = new CompetitorViewModel(Belt.Ao, _eventManager);
             _resetTime = TimeSpan.FromMinutes(3);
             _time = new StopWatchViewModel(_resetTime);
             _reset = new RelayCommand(OnReset);
@@ -27,6 +30,11 @@ namespace WkfSemaphore
                 _resetTime = value;
                 OnPropertyChanged("ResetTime");
             }
+        }
+
+        public EventManagerViewModel EventManager
+        {
+            get { return _eventManager; }
         }
 
         public RelayCommand Reset
@@ -51,14 +59,10 @@ namespace WkfSemaphore
 
         private void OnReset()
         {
-            _aka.ChangeC1.Execute(Penalty.None);
-            _aka.ChangeC2.Execute(Penalty.None);
-            _aka.ChangePoints.Execute(_aka.Points*-1);
-
-            _ao.ChangeC1.Execute(Penalty.None);
-            _ao.ChangeC2.Execute(Penalty.None);
-            _ao.ChangePoints.Execute(_ao.Points*-1);
-
+            _eventManager.Clear();
+            _aka.C1 = _aka.C2 = _ao.C1 = _ao.C2 = Penalty.None;
+            _aka.Points = _ao.Points = 0;
+            
             _time.Reset.Execute(_resetTime);
         }
     }

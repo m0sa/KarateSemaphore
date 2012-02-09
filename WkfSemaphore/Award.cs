@@ -7,4 +7,11 @@ namespace WkfSemaphore
         WazaAri = 2,
         Ippon = 3,
     }
+
+    public enum Belt
+    {
+        None = 0,
+        Aka = 1,
+        Ao = 2
+    }
 }

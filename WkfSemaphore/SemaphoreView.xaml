@@ -1,11 +1,11 @@
-﻿<Window x:Class="WkfSemaphore.SemaforView"
+﻿<Window x:Class="WkfSemaphore.SemaphoreView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:WkfSemaphore"
         mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance vm:SemaforViewModel, IsDesignTimeCreatable=True}"
-        Title="SemaforView" Height="300" Width="582" StateChanged="Window_StateChanged">
+        d:DataContext="{d:DesignInstance vm:SemaphoreViewModel, IsDesignTimeCreatable=True}"
+        Title="SemaphoreView" Height="300" Width="582" StateChanged="WindowStateChanged">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,9 +20,9 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Background="{Binding Source={StaticResource aka}}">
-            <vm:CompetitorSemaforView DataContext="{Binding Aka}" Loaded="CompetitorSemaforView_Loaded" />
+            <vm:CompetitorSemaforView DataContext="{Binding Aka}" />
         </Border>
-        <Button Content="FS" Name="FullScreenButton" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Click="FullScreenButton_Click" />
+        <Button Content="FS" Name="FullScreenButton" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Click="FullScreenButtonClick" />
         <Border Grid.Column="1">
             <Viewbox Stretch="Uniform">
                 <TextBlock Text="{Binding Path=Time.Remaining, StringFormat=\{0:mm\\:ss\\:ff\}}" />

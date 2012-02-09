@@ -3,3 +3,5 @@ _ReSharper.*
 */obj/*
 */bin/*
 *.suo
+packages/*
+*.user

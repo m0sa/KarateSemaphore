@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace WkfSemaphore
 {
@@ -11,10 +12,8 @@ namespace WkfSemaphore
         {
             base.OnStartup(e);
             var vm = new SemaphoreViewModel();
-            var semaforView = new SemaforView();
-            semaforView.DataContext = vm;
-            var semaforControllerView = new SemaforControllerView();
-            semaforControllerView.DataContext = vm;
+            var semaforView = new SemaphoreView { DataContext = vm };
+            var semaforControllerView = new SemaphoreControllerView { DataContext = vm };
             semaforView.Show();
             semaforControllerView.Show();
         }

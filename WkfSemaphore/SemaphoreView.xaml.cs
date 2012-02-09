@@ -5,16 +5,17 @@ using System.Windows.Media;
 namespace WkfSemaphore
 {
     /// <summary>
-    /// Interaction logic for SemaforView.xaml
+    /// Interaction logic for SemaphoreView.xaml
     /// </summary>
-    public partial class SemaforView : Window
+    public partial class SemaphoreView : Window
     {
-        public SemaforView()
+        public SemaphoreView()
         {
             InitializeComponent();
+            Loaded += OnLoaded;
         }
-        
-        private void CompetitorSemaforView_Loaded(object sender, RoutedEventArgs re)
+
+        private void OnLoaded(object sender, RoutedEventArgs re)
         {
             var viewModel = (SemaphoreViewModel)this.DataContext;
 
@@ -32,20 +33,20 @@ namespace WkfSemaphore
             mplayer.Play();
         }
 
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        private void FullScreenButtonClick(object sender, RoutedEventArgs e)
         {
-            this.WindowStyle = WindowStyle.None;
-            this.WindowState = WindowState.Maximized;
-            this.FullScreenButton.Visibility = Visibility.Hidden;
-            this.Topmost = true;
+            WindowStyle = WindowStyle.None;
+            WindowState = WindowState.Maximized;
+            FullScreenButton.Visibility = Visibility.Hidden;
+            Topmost = true;
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
+        private void WindowStateChanged(object sender, EventArgs e)
         {
-            if (this.WindowState == WindowState.Normal)
+            if (WindowState == WindowState.Normal)
             {
-                this.FullScreenButton.Visibility = Visibility.Visible;
-                this.Topmost = false;
+                FullScreenButton.Visibility = Visibility.Visible;
+                Topmost = false;
             }
         }
     }

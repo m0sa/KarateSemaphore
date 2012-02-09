@@ -15,6 +15,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\WkfSemaphore\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -52,6 +54,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\EventManagerViewModel.cs" />
+    <Compile Include="Events\AwardEvent.cs" />
+    <Compile Include="Events\PenaltyEvent.cs" />
+    <Compile Include="Events\RelayEvent.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventManager.cs" />
+    <Compile Include="Events\TimestampedEvent.cs" />
     <Compile Include="Award.cs" />
     <Compile Include="CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
@@ -62,12 +71,13 @@
     <Compile Include="CompetitorViewModel.cs" />
     <Compile Include="MinutesSecondsConverter.cs" />
     <Compile Include="Penalty.cs" />
+    <Compile Include="ReflectionHelper.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="SemaforControllerView.xaml.cs">
-      <DependentUpon>SemaforControllerView.xaml</DependentUpon>
+    <Compile Include="SemaphoreControllerView.xaml.cs">
+      <DependentUpon>SemaphoreControllerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SemaforView.xaml.cs">
-      <DependentUpon>SemaforView.xaml</DependentUpon>
+    <Compile Include="SemaphoreView.xaml.cs">
+      <DependentUpon>SemaphoreView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SemaphoreViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -111,11 +121,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SemaforControllerView.xaml">
+    <Page Include="SemaphoreControllerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SemaforView.xaml">
+    <Page Include="SemaphoreView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,6 +143,7 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

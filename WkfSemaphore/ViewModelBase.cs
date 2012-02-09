@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Windows.Threading;
 
 namespace WkfSemaphore
@@ -8,7 +10,12 @@ namespace WkfSemaphore
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        protected void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged<T>(Expression<Func<T>> property)
+        {
+            OnPropertyChanged(ReflectionHelper.GetPropertyName(property));
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             var args = new PropertyChangedEventArgs(propertyName);
             Dispatcher.CurrentDispatcher.Invoke(new Action(() => PropertyChanged(this, args)));
