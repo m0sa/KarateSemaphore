@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="WkfSemaphore.CompetitorSemaforView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:CompetitorViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="300" d:DesignWidth="305"
+             Background="Transparent">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110*" />
+            <RowDefinition Height="55*" />
+        </Grid.RowDefinitions>
+        <Viewbox>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Points}" Background="{x:Null}" />
+        </Viewbox>
+        <Viewbox Grid.Row="1">
+            <StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="C1:" Margin="2" />
+                    <TextBlock TextWrapping="Wrap" Text="{Binding C1}" Margin="2" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="C2:" Margin="2" />
+                    <TextBlock TextWrapping="Wrap" Text="{Binding C2}" Margin="2" />
+                </StackPanel>
+
+            </StackPanel>
+        </Viewbox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="WkfSemaphore.CompetitorControllerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance vm:CompetitorViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="300" d:DesignWidth="300"
+             Background="Transparent">    
+    <StackPanel Margin="5">
+        <TextBlock HorizontalAlignment="Center">Točkovanje</TextBlock>
+        <Button Content="Yuko   [1]" Command="{Binding Path=ChangePoints}" CommandParameter="1" />
+        <Button Content="Wazari   [2]" Command="{Binding Path=ChangePoints}" CommandParameter="2" Click="Button_Click" />
+        <Button Content="Ippon    [3]" Command="{Binding Path=ChangePoints}" CommandParameter="3" />
+        <Button Content="-1" Command="{Binding Path=ChangePoints}" CommandParameter="-1" Background="#FFDDE525" />
+        <TextBlock HorizontalAlignment="Center">Kazni</TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="C1" HorizontalAlignment="Center" />
+                
+                <Button Content="Brez" Command="{Binding Path=ChangeC1}" CommandParameter="None" />
+                <Button Content="Chukoku" Command="{Binding Path=ChangeC1}" CommandParameter="Chukoku" />
+                <Button Content="Keikoku" Command="{Binding Path=ChangeC1}" CommandParameter="Keikoku" />
+                <Button Content="Hansoku Chui" Command="{Binding Path=ChangeC1}" CommandParameter="HansokuChui" />
+                <Button Content="Hansoku" Command="{Binding Path=ChangeC1}" CommandParameter="Hansoku" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="C2" HorizontalAlignment="Center" />
+
+                <Button Content="Brez" Command="{Binding Path=ChangeC2}" CommandParameter="None" />
+                <Button Content="Chukoku" Command="{Binding Path=ChangeC2}" CommandParameter="Chukoku" />
+                <Button Content="Keikoku" Command="{Binding Path=ChangeC2}" CommandParameter="Keikoku" />
+                <Button Content="Hansoku Chui" Command="{Binding Path=ChangeC2}" CommandParameter="HansokuChui" />
+                <Button Content="Hansoku" Command="{Binding Path=ChangeC2}" CommandParameter="Hansoku" />
+            </StackPanel>
+        </Grid>
+        <Button Content="Kiken" IsEnabled="False" />
+        <Button Content="Shikakku" IsEnabled="False" />
+    </StackPanel>
+</UserControl>
