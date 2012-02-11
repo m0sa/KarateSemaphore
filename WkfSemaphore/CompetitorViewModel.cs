@@ -13,7 +13,15 @@ namespace WkfSemaphore
         private Penalty _c2;
         private int _points;
 
-        public CompetitorViewModel(Belt belt = Belt.None, IEventManager eventManager = null)
+        /// <summary>
+        /// Parameterless constructor for designtime support.
+        /// </summary>
+        public CompetitorViewModel()
+            : this(Belt.None, null)
+        {
+        }
+
+        public CompetitorViewModel(Belt belt, IEventManager eventManager)
         {
             _belt = belt;
             _eventManager = eventManager;

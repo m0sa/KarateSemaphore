@@ -65,12 +65,12 @@
     <Compile Include="CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CompetitorSemaforView.xaml.cs">
-      <DependentUpon>CompetitorSemaforView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CompetitorViewModel.cs" />
     <Compile Include="MinutesSecondsConverter.cs" />
     <Compile Include="Penalty.cs" />
+    <Compile Include="PenaltyDisplayControl.xaml.cs">
+      <DependentUpon>PenaltyDisplayControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="SemaphoreControllerView.xaml.cs">
@@ -106,6 +106,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <Resource Include="Ni7seg.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,8 +118,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CompetitorSemaforView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="PenaltyDisplayControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SemaphoreControllerView.xaml">
@@ -130,7 +130,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

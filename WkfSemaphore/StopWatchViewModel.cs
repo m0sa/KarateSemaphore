@@ -20,50 +20,50 @@ namespace WkfSemaphore
 
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += (s, e) =>
-                              {
-                                  TimeSpan nextRemaining = initial - stopwatch.Elapsed;
-                                  if (nextRemaining.Ticks <= 0)
-                                  {
-                                      _remaining = TimeSpan.FromSeconds(0);
-                                      OnMatchEnd();
-                                      OnPropertyChanged("Remaining");
-                                      timer.Stop();
-                                      stopwatch.Stop();
-                                      return;
-                                  }
-                                  _remaining = nextRemaining;
-                                  OnPropertyChanged("Remaining");
-                                  if (nextRemaining.Seconds < 10 && !atoshibaraku)
-                                  {
-                                      atoshibaraku = true;
-                                      OnAtoshibaraku();
-                                  }
-                              };
+            {
+                TimeSpan nextRemaining = initial - stopwatch.Elapsed;
+                if (nextRemaining.Ticks <= 0)
+                {
+                    _remaining = TimeSpan.FromSeconds(0);
+                    OnMatchEnd();
+                    OnPropertyChanged("Remaining");
+                    timer.Stop();
+                    stopwatch.Stop();
+                    return;
+                }
+                _remaining = nextRemaining;
+                OnPropertyChanged("Remaining");
+                if (nextRemaining.TotalSeconds < 10 && !atoshibaraku)
+                {
+                    atoshibaraku = true;
+                    OnAtoshibaraku();
+                }
+            };
 
             _startStop = new RelayCommand(() =>
-                                              {
-                                                  if (timer.IsEnabled)
-                                                  {
-                                                      stopwatch.Stop();
-                                                      timer.Stop();
-                                                  }
-                                                  else
-                                                  {
-                                                      stopwatch.Start();
-                                                      timer.Start();
-                                                  }
-                                              });
+            {
+                if (timer.IsEnabled)
+                {
+                    stopwatch.Stop();
+                    timer.Stop();
+                }
+                else
+                {
+                    stopwatch.Start();
+                    timer.Start();
+                }
+            });
 
             _reset = new RelayCommand<TimeSpan>(t =>
-                                                    {
-                                                        timer.Stop();
-                                                        stopwatch.Stop();
-                                                        stopwatch.Reset();
-                                                        initial = t;
-                                                        atoshibaraku = false;
-                                                        _remaining = t;
-                                                        OnPropertyChanged("Remaining");
-                                                    });
+            {
+                timer.Stop();
+                stopwatch.Stop();
+                stopwatch.Reset();
+                initial = t;
+                atoshibaraku = false;
+                _remaining = t;
+                OnPropertyChanged("Remaining");
+            });
         }
 
 

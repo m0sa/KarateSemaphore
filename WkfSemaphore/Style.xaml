@@ -4,12 +4,28 @@
     <WkfSemaphore:MinutesSecondsConverter x:Key="timeConverter" />
     <SolidColorBrush x:Key="aka" Color="#FFFF1100" />
     <SolidColorBrush x:Key="ao" Color="#FF0687FF" />
-    <Style TargetType="Button">
-        <Setter Property="Margin" Value="1" />
+    <SolidColorBrush x:Key="panelBackground" Color="#000000" />
+    <SolidColorBrush x:Key="panelForeground" Color="#FFFFFF" />
+    <Style TargetType="TextBlock" x:Key="panelText">
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=panelForeground}" />
+        <Setter Property="FontFamily" Value="./#NI7SEG" />
     </Style>
-    <Style TargetType="Button" x:Key="CautionButtonStyle">
-        <Setter Property="Background" Value="Yellow" />
-        <Setter Property="Foreground" Value="Red" />
-        <Setter Property="Margin" Value="1" />
-    </Style>
+    <ControlTemplate TargetType="Control" x:Key="panelPenaltyItem">
+        <Viewbox>
+            <Rectangle Stroke="{StaticResource ResourceKey=panelForeground}" StrokeThickness="1" Width="20" Height="20" Margin="2">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                <Setter Property="Fill" Value="Pink" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                                <Setter Property="Fill" Value="GreenYellow" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Viewbox>
+    </ControlTemplate>
 </ResourceDictionary>

@@ -25,11 +25,15 @@ namespace WkfSemaphore
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
+
             TimeSpan result;
-            return
-                TimeSpan.TryParseExact(value + string.Empty, Format, CultureInfo.CurrentUICulture, out result)
-                    ? result
-                    : TimeSpan.Zero;
+            var stringValue = value + string.Empty;
+            stringValue = stringValue.Trim();
+            if(!TimeSpan.TryParseExact(stringValue, Format, CultureInfo.CurrentUICulture, out result))
+            {
+                throw new FormatException("Required format: " + Format[0]);
+            }
+            return result;
         }
 
         #endregion
