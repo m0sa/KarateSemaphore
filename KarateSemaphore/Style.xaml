@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:WkfSemaphore="clr-namespace:KarateSemaphore">
-    <WkfSemaphore:MinutesSecondsConverter x:Key="timeConverter" />
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="aka" Color="#FFFF1100" />
     <SolidColorBrush x:Key="ao" Color="#FF0687FF" />
     <SolidColorBrush x:Key="panelBackground" Color="#000000" />

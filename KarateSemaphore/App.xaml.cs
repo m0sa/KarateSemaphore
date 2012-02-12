@@ -14,7 +14,7 @@ namespace KarateSemaphore
     /// </summary>
     public partial class App
     {
-
+        private const string TitlePrefix = "Karate Semaphore | ";
         protected override void OnStartup(StartupEventArgs startupArgs)
         {
             base.OnStartup(startupArgs);
@@ -42,6 +42,7 @@ namespace KarateSemaphore
         
         private static void SetupDisplayWindow(Window display)
         {
+            display.Title = TitlePrefix + "Scoreboard Display";
             var defaultWindowStyle = display.WindowStyle;
             var hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(display).EnsureHandle());
 
@@ -82,6 +83,7 @@ namespace KarateSemaphore
 
         private void SetupControllerWindow(Window controller, SemaphoreViewModel vm)
         {
+            controller.Title = TitlePrefix + "Scoreboard Controller";
             controller.PreviewKeyDown += (s, e) => HandlePreviewKey(controller, e);
             controller.InputBindings.Add(new KeyBinding(vm.Time.StartStop, new KeyGesture(Key.Space)));
             controller.InputBindings.Add(new KeyBinding(vm.Reset, new KeyGesture(Key.F9)));
