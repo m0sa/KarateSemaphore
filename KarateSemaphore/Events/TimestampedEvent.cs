@@ -1,6 +1,6 @@
 using System;
 
-namespace WkfSemaphore.Events
+namespace KarateSemaphore.Events
 {
     public abstract class TimestampedEvent : IEvent
     {

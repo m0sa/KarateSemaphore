@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace WkfSemaphore.Events
+namespace KarateSemaphore.Events
 {
     public class AwardEvent : TimestampedEvent
     {

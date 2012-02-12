@@ -1,9 +1,6 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     /// <summary>
     /// Interaction logic for SemaphoreView.xaml

@@ -1,4 +1,4 @@
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     public enum Penalty
     {

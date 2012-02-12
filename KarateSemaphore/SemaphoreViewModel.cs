@@ -1,7 +1,8 @@
 ﻿using System;
-using WkfSemaphore.Events;
 
-namespace WkfSemaphore
+using KarateSemaphore.Events;
+
+namespace KarateSemaphore
 {
     public class SemaphoreViewModel : ViewModelBase
     {

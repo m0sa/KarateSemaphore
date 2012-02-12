@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,6 +1,6 @@
-using WkfSemaphore.Events;
+using KarateSemaphore.Events;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     public class CompetitorViewModel : ViewModelBase
     {

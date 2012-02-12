@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     class ReflectionHelper
     {

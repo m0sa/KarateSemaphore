@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace WkfSemaphore.Events
+namespace KarateSemaphore.Events
 {
 
     public class PenaltyEvent : TimestampedEvent

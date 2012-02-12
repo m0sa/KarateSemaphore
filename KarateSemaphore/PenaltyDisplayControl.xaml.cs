@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     /// <summary>
     /// Interaction logic for PenaltyDisplayControl.xaml

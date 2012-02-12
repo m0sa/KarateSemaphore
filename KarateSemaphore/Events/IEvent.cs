@@ -1,4 +1,4 @@
-namespace WkfSemaphore.Events
+namespace KarateSemaphore.Events
 {
     public interface IEvent
     {

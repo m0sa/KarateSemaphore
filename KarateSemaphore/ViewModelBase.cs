@@ -1,10 +1,9 @@
 using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Windows.Threading;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

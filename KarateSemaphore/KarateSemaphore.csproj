@@ -8,8 +8,8 @@
     <ProjectGuid>{D7828896-0AE0-45F6-9F14-45332B558E3E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WkfSemaphore</RootNamespace>
-    <AssemblyName>WkfSemaphore</AssemblyName>
+    <RootNamespace>KarateSemaphore</RootNamespace>
+    <AssemblyName>KarateSemaphore</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

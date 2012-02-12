@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     /// <summary>
     /// Interaction logic for CompetitorView.xaml

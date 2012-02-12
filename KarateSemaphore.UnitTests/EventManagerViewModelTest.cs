@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NSubstitute;
-using NUnit.Framework;
-using WkfSemaphore.Events;
 
-namespace WkfSemaphore.UnitTests
+using KarateSemaphore.Events;
+
+using NSubstitute;
+
+using NUnit.Framework;
+
+namespace KarateSemaphore.UnitTests
 {
     [TestFixture]
     public class EventManagerViewModelTest

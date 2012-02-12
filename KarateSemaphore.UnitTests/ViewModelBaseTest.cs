@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using NUnit.Framework;
 
-namespace WkfSemaphore.UnitTests
+namespace KarateSemaphore.UnitTests
 {
     [TestFixture]
     public class ViewModelBaseTest
     {
-
         private class TestableViewModelBase : ViewModelBase
         {
             private string _property;

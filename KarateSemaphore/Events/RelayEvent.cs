@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WkfSemaphore.Events
+namespace KarateSemaphore.Events
 {
     public class RelayEvent : IEvent
     {

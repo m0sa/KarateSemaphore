@@ -2,7 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace WkfSemaphore.Events
+namespace KarateSemaphore.Events
 {
     public class EventManagerViewModel : ViewModelBase, IEventManager
     {

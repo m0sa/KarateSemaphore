@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KzSemafor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("KarateSemaphore")]
+[assembly: AssemblyDescription("Karate Scoreboard Semaphore")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KzSemafor")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCompany("m0sa.net")]
+[assembly: AssemblyProduct("KarateSemaphore")]
+[assembly: AssemblyCopyright("Copyright © m0sa.net 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

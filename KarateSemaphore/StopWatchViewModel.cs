@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Threading;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     public class StopWatchViewModel : ViewModelBase
     {

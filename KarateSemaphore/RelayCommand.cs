@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace WkfSemaphore
+namespace KarateSemaphore
 {
     public class RelayCommand<T> : ICommand
     {
