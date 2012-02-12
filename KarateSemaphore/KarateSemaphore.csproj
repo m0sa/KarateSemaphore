@@ -21,7 +21,7 @@
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -29,12 +29,15 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://karatesemaphore.codeplex.com/releases/clickonce/</InstallUrl>
+    <UpdateUrl>http://karatesemaphore.codeplex.com/releases/clickonce/</UpdateUrl>
     <SupportUrl>http://karatesemaphore.codeplex.com/</SupportUrl>
     <ErrorReportUrl>http://karatesemaphore.codeplex.com/workitem/list/basic</ErrorReportUrl>
     <ProductName>Karate Semaphore</ProductName>
     <PublisherName>Samo Prelog</PublisherName>
     <SuiteName>m0sa.net</SuiteName>
-    <ApplicationRevision>0</ApplicationRevision>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
