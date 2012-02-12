@@ -62,21 +62,21 @@
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\TimestampedEvent.cs" />
     <Compile Include="Award.cs" />
-    <Compile Include="CompetitorControllerView.xaml.cs">
+    <Compile Include="Views\CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CompetitorViewModel.cs" />
-    <Compile Include="MinutesSecondsConverter.cs" />
+    <Compile Include="Views\MinutesSecondsConverter.cs" />
     <Compile Include="Penalty.cs" />
-    <Compile Include="PenaltyDisplayControl.xaml.cs">
+    <Compile Include="Views\PenaltyDisplayControl.xaml.cs">
       <DependentUpon>PenaltyDisplayControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="SemaphoreControllerView.xaml.cs">
+    <Compile Include="Views\SemaphoreControllerView.xaml.cs">
       <DependentUpon>SemaphoreControllerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SemaphoreView.xaml.cs">
+    <Compile Include="Views\SemaphoreView.xaml.cs">
       <DependentUpon>SemaphoreView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SemaphoreViewModel.cs" />
@@ -106,7 +106,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <Resource Include="Ni7seg.ttf" />
+    <Resource Include="Views\Ni7seg.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,22 +114,22 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CompetitorControllerView.xaml">
+    <Page Include="Views\CompetitorControllerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PenaltyDisplayControl.xaml">
+    <Page Include="Views\PenaltyDisplayControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SemaphoreControllerView.xaml">
+    <Page Include="Views\SemaphoreControllerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SemaphoreView.xaml">
+    <Page Include="Views\SemaphoreView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Style.xaml">
+    <Page Include="Views\Style.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
