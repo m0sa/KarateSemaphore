@@ -1,5 +1,8 @@
 namespace KarateSemaphore
 {
+    /// <summary>
+    /// Enumeration of penalty levels.
+    /// </summary>
     public enum Penalty
     {
         None = 0,

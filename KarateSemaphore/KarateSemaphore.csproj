@@ -107,6 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Belt.cs" />
     <Compile Include="Events\EventManagerViewModel.cs" />
     <Compile Include="Events\AwardEvent.cs" />
     <Compile Include="Events\PenaltyEvent.cs" />
@@ -119,6 +120,9 @@
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CompetitorViewModel.cs" />
+    <Compile Include="Views\SemaphoreViewInverse.xaml.cs">
+      <DependentUpon>SemaphoreViewInverse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MinutesSecondsConverter.cs" />
     <Compile Include="Penalty.cs" />
     <Compile Include="Views\PenaltyDisplayControl.xaml.cs">
@@ -172,6 +176,10 @@
     <Page Include="Views\CompetitorControllerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SemaphoreViewInverse.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PenaltyDisplayControl.xaml">
       <Generator>MSBuild:Compile</Generator>

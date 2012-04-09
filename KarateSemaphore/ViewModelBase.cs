@@ -5,6 +5,9 @@ using System.Windows.Threading;
 
 namespace KarateSemaphore
 {
+    /// <summary> 
+    /// The base class for MVVM style view models, implementing the <see cref="INotifyPropertyChanged"/> interface.
+    /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
