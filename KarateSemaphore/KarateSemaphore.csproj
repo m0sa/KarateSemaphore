@@ -120,6 +120,9 @@
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CompetitorViewModel.cs" />
+    <Compile Include="Views\SemaphoreViewNormal.xaml.cs">
+      <DependentUpon>SemaphoreViewNormal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SemaphoreViewInverse.xaml.cs">
       <DependentUpon>SemaphoreViewInverse.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,7 @@
     </Compile>
     <Compile Include="StopWatchViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Views\TernaryConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -176,6 +180,10 @@
     <Page Include="Views\CompetitorControllerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SemaphoreViewNormal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SemaphoreViewInverse.xaml">
       <Generator>MSBuild:Compile</Generator>
