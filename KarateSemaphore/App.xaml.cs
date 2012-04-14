@@ -1,31 +1,35 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using KarateSemaphore.Events;
+
+#endregion
 
 namespace KarateSemaphore
 {
-    using System.Reactive.Linq;
-    using KarateSemaphore.Events;
-
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///   Interaction logic for App.xaml
     /// </summary>
     public partial class App
     {
         private const string TitlePrefix = "Karate Semaphore | ";
+
         protected override void OnStartup(StartupEventArgs startupArgs)
         {
             base.OnStartup(startupArgs);
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             // create media
-            var atoshibaraku = CreateAndPreBufferMedia("Media/atoshibaraku.wav");
-            var matchEnd = CreateAndPreBufferMedia("Media/end.wav");
+            var atoshibaraku = CreatePlayer("Media/atoshibaraku.wav");
+            var matchEnd = CreatePlayer("Media/end.wav");
 
             // create view model
             var eventManager = new EventManagerViewModel();
@@ -33,20 +37,20 @@ namespace KarateSemaphore
             var stopWatch = new StopWatchViewModel(time);
             stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
             var vm = new SemaphoreViewModel(stopWatch, eventManager);
-            vm.Time.Atoshibaraku += (s, e) => atoshibaraku.Play();
-            vm.Time.MatchEnd += (s, e) => matchEnd.Play();
+            vm.Time.Atoshibaraku += (s, e) => Dispatcher.Invoke(atoshibaraku);
+            vm.Time.MatchEnd += (s, e) => Dispatcher.Invoke(matchEnd);
 
             // create and show windows
-            var display = new Window { Content = new SemaphoreView { DataContext = vm } };
+            var display = new Window {Content = new SemaphoreView {DataContext = vm}};
             SetupDisplayWindow(display);
 
-            var controller = new Window { Content = new SemaphoreControllerView { DataContext = vm } };
+            var controller = new Window {Content = new SemaphoreControllerView {DataContext = vm}};
             SetupControllerWindow(controller, vm);
-            
+
             display.Show();
             controller.Show();
         }
-        
+
         private static void SetupDisplayWindow(Window display)
         {
             display.Title = TitlePrefix + "Scoreboard Display";
@@ -54,38 +58,39 @@ namespace KarateSemaphore
             var hwndSource = HwndSource.FromHwnd(new WindowInteropHelper(display).EnsureHandle());
 
             Action toNormal = () =>
-            {
-                display.Topmost = false;
-                display.WindowStyle = defaultWindowStyle;
-                display.WindowState = WindowState.Normal;
-            };
-            
-            hwndSource.AddHook(delegate(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-            {
-                const int WM_SYSCOMMAND = 0x112;
-                const int SC_MAXIMIZE = 0xF030;
-                const int SC_CLOSE = 0xF060;
-                const int SC_RESTORE = 0xF120;
-                if (msg == WM_SYSCOMMAND)
+                              {
+                                  display.Topmost = false;
+                                  display.WindowStyle = defaultWindowStyle;
+                                  display.WindowState = WindowState.Normal;
+                              };
+
+            hwndSource.AddHook(
+                delegate(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
                 {
-                    var sysCommand = wParam.ToInt32();
-                    switch (sysCommand)
+                    const int WM_SYSCOMMAND = 0x112;
+                    const int SC_MAXIMIZE = 0xF030;
+                    const int SC_CLOSE = 0xF060;
+                    const int SC_RESTORE = 0xF120;
+                    if (msg == WM_SYSCOMMAND)
                     {
-                        case SC_MAXIMIZE:
-                            display.Topmost = true;
-                            display.WindowStyle = WindowStyle.None;
-                            break;
-                        case SC_CLOSE:
-                            toNormal();
-                            handled = true;
-                            break;
-                        case SC_RESTORE:
-                            toNormal();
-                            break;
+                        var sysCommand = wParam.ToInt32();
+                        switch (sysCommand)
+                        {
+                            case SC_MAXIMIZE:
+                                display.Topmost = true;
+                                display.WindowStyle = WindowStyle.None;
+                                break;
+                            case SC_CLOSE:
+                                toNormal();
+                                handled = true;
+                                break;
+                            case SC_RESTORE:
+                                toNormal();
+                                break;
+                        }
                     }
-                }
-                return IntPtr.Zero;
-            });
+                    return IntPtr.Zero;
+                });
         }
 
         private void SetupControllerWindow(Window controller, SemaphoreViewModel vm)
@@ -113,37 +118,46 @@ namespace KarateSemaphore
             // Prevents focusing of all controlls (except textboxes).
             // Fixes the textbox behavior where a textbox keeps keyboard focus if a non focusable button is clicked.
             var inputElement = Keyboard.FocusedElement as UIElement;
-            if (inputElement == null || inputElement == window) return;
+            if (inputElement == null || inputElement == window)
+            {
+                return;
+            }
 
             inputElement.Focusable = false;
 
             Keyboard.ClearFocus();
             window.Focus(); // Focus on the window instead
 
-            if (!(inputElement is TextBox)) return;
+            if (!(inputElement is TextBox))
+            {
+                return;
+            }
             // The textbox must still be focusable if we want to type d00h...
             inputElement.Focusable = true;
             // Fixes the updating of a source bound to a textbox text property.
-            var textBinding = BindingOperations.GetBindingExpressionBase(inputElement,
-                                                                                           TextBox.TextProperty);
-            if (textBinding != null) textBinding.UpdateSource();
+            var textBinding = BindingOperations.GetBindingExpressionBase(
+                inputElement,
+                TextBox.TextProperty);
+            if (textBinding != null)
+            {
+                textBinding.UpdateSource();
+            }
         }
 
-
-        private static MediaPlayer CreateAndPreBufferMedia(string uri)
+        private static Action CreatePlayer(string uri)
         {
             var mplayer = new MediaPlayer();
             mplayer.MediaFailed += (s, e) => Console.WriteLine(e.ErrorException.ToString());
             mplayer.Open(new Uri("pack://siteoforigin:,,,/" + uri));
             mplayer.Volume = 0.0; // play once with volume
             mplayer.Play(); // prebuffer with volume 0
-            mplayer.MediaEnded += (s, e) =>
-            {
-                mplayer.Stop();
-                mplayer.Volume = 1.0;
-                mplayer.Position = TimeSpan.Zero;
-            };
-            return mplayer;
+
+            return () =>
+                   {
+                       mplayer.Position = TimeSpan.Zero;
+                       mplayer.Volume = 1.0;
+                       mplayer.Play();
+                   };
         }
     }
 }

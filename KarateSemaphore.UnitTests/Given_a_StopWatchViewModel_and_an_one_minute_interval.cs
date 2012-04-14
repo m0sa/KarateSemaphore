@@ -21,14 +21,14 @@ namespace KarateSemaphore.UnitTests
         }
 
         [SetUp]
-        public void Setup()
+        public virtual void Setup()
         {
             _scheduler = new TestScheduler();
             _interval = TimeSpan.FromMinutes(1);
             var now = DateTime.Now;
             var timeSchedule = _scheduler.CreateHotObservable(
                 Enumerable
-                .Range(0, 61)
+                .Range(0, 181)
                 .Select(i => new Recorded<Notification<DateTime>>(i, Notification.CreateOnNext(now.AddSeconds(i))))
                 .ToArray());
             _instance = new StopWatchViewModel(timeSchedule);
@@ -72,7 +72,7 @@ namespace KarateSemaphore.UnitTests
         }
 
         [Test]
-        public void Time_is_not_updated_while_paused()
+        public void When_paused_time_is_not_updated()
         {
             StartStop();
             _scheduler.AdvanceBy(1);          // 1 sec
@@ -82,6 +82,71 @@ namespace KarateSemaphore.UnitTests
             _scheduler.AdvanceBy(1);          // 1 sec
             
             Assert.That(_instance.Remaining, Is.EqualTo(TimeSpan.FromSeconds(58)));
+        }
+
+        [Test]
+        public void When_10_seconds_remaining_the_Atoshibaraku_event_is_raised()
+        {
+            var eventRaised = false;
+            _instance.Atoshibaraku += (s, e) => eventRaised = true;
+            StartStop();
+            _scheduler.AdvanceBy(50);
+
+            Assert.That(_instance.Remaining, Is.EqualTo(TimeSpan.FromSeconds(10)));
+            Assert.IsTrue(eventRaised);
+        }
+
+        [Test]
+        public void When_less_than_10_seconds_remaining_Atoshibaraku_event_is_raised_only_once()
+        {
+            var eventCount = 0;
+            _instance.Atoshibaraku += (s, e) => eventCount++;
+            StartStop();
+            _scheduler.AdvanceBy(55);
+
+            Assert.That(eventCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void After_interval_elapses_time_is_always_zero()
+        {
+            StartStop();
+            _scheduler.AdvanceBy(65);
+
+            Assert.That(_instance.Remaining, Is.EqualTo(TimeSpan.Zero));
+        }
+
+        [Test]
+        public void After_interval_elapses_time_the_MatchEnd_event_is_raised()
+        {
+            var eventRaised = false;
+            _instance.MatchEnd += (s, e) => eventRaised = true;
+            StartStop();
+            _scheduler.AdvanceBy(60);
+
+            Assert.IsTrue(eventRaised);
+        }
+
+        [Test]
+        public void After_interval_elapses_time_the_MatchEnd_event_is_raised_only_once()
+        {
+            var eventCount = 0;
+            _instance.MatchEnd += (s, e) => eventCount++;
+            StartStop();
+            _scheduler.AdvanceBy(65);
+
+            Assert.That(eventCount, Is.EqualTo(1));
+        }
+
+        public class And_one_match_was_completed : Given_a_StopWatchViewModel_and_an_one_minute_interval
+        {
+            public override void Setup()
+            {
+                base.Setup();
+                StartStop();
+                Scheduler.AdvanceBy(60);
+                Reset();
+            }
         }
     }
 }

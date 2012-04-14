@@ -22,6 +22,7 @@ namespace KarateSemaphore
         private bool disposed;
         private bool isStarted;
         private bool atoshibaraku;
+        private bool matchEnd;
 
         /// <summary>
         ///   Creates a new instance of the <see cref="StopWatchViewModel" /> class.
@@ -36,9 +37,24 @@ namespace KarateSemaphore
                     {
                         var difference = t - (previous ?? t);
                         previous = t;
-                        if (isStarted)
+                        if (isStarted && difference.Ticks > 0)
                         {
                             _remaining -= difference;
+                            if (_remaining <= TimeSpan.Zero)
+                            {
+                                _remaining = TimeSpan.Zero;
+                                if (!matchEnd)
+                                {
+                                    matchEnd = true;
+                                    OnMatchEnd();
+                                }
+                            }
+                            OnPropertyChanged(() => Remaining);
+                        }
+                        if (_remaining <= TimeSpan.FromSeconds(10) && !atoshibaraku)
+                        {
+                            atoshibaraku = true;
+                            OnAtoshibaraku();
                         }
                     });
 
@@ -49,7 +65,9 @@ namespace KarateSemaphore
                 {
                     isStarted = false;
                     atoshibaraku = false;
+                    matchEnd = false;
                     _remaining = t;
+                    OnPropertyChanged(() => Remaining);
                 });
         }
 
