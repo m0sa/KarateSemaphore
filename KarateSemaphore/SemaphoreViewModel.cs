@@ -4,6 +4,8 @@ using KarateSemaphore.Events;
 
 namespace KarateSemaphore
 {
+    using System.Reactive.Linq;
+
     /// <summary>
     /// The base view model used for the controller and display views.
     /// </summary>
@@ -19,13 +21,15 @@ namespace KarateSemaphore
         /// <summary> 
         /// Creates a new instance of the <see cref="SemaphoreViewModel"/> class.
         /// </summary>
-        public SemaphoreViewModel()
+        public SemaphoreViewModel(StopWatchViewModel time, EventManagerViewModel eventManager)
         {
-            _eventManager = new EventManagerViewModel();
+            _eventManager = eventManager;
             _aka = new CompetitorViewModel(Belt.Aka, _eventManager);
             _ao = new CompetitorViewModel(Belt.Ao, _eventManager);
             _resetTime = TimeSpan.FromMinutes(3);
-            _time = new StopWatchViewModel(_resetTime);
+
+            
+            _time = time;
             _reset = new RelayCommand(() =>
             {
                 _eventManager.Clear();

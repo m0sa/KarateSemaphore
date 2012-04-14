@@ -47,7 +47,7 @@
         </Viewbox>
 
         <Viewbox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3">
-            <TextBlock Text="{Binding Time.Remaining, Mode=OneWay, StringFormat=\{0:mm\\:ss\\:ff\}}" Style="{StaticResource ResourceKey=panelText}" />
+            <TextBlock Text="{Binding StopWatch.Remaining, Mode=OneWay, StringFormat=\{0:mm\\:ss\\:ff\}}" Style="{StaticResource ResourceKey=panelText}" />
         </Viewbox>
 
         <vm:PenaltyDisplayControl Grid.Column="1" Grid.Row="1" Penalty="{Binding Path=Aka.C1}" ItemTemplate="{StaticResource ResourceKey=panelPenaltyItem}" />

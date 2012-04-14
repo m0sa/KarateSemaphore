@@ -9,6 +9,9 @@ using System.Windows.Media;
 
 namespace KarateSemaphore
 {
+    using System.Reactive.Linq;
+    using KarateSemaphore.Events;
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
@@ -25,7 +28,11 @@ namespace KarateSemaphore
             var matchEnd = CreateAndPreBufferMedia("Media/end.wav");
 
             // create view model
-            var vm = new SemaphoreViewModel();
+            var eventManager = new EventManagerViewModel();
+            var time = Observable.Interval(TimeSpan.FromMilliseconds(50)).Select(x => DateTime.Now);
+            var stopWatch = new StopWatchViewModel(time);
+            stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
+            var vm = new SemaphoreViewModel(stopWatch, eventManager);
             vm.Time.Atoshibaraku += (s, e) => atoshibaraku.Play();
             vm.Time.MatchEnd += (s, e) => matchEnd.Play();
 

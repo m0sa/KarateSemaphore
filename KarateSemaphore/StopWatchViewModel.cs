@@ -1,86 +1,60 @@
+#region
+
 using System;
-using System.Diagnostics;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
 using System.Windows.Threading;
+
+#endregion
 
 namespace KarateSemaphore
 {
     /// <summary>
-    /// A view model for the stopwatch functionality.
+    ///   A view model for the stopwatch functionality.
     /// </summary>
     public class StopWatchViewModel : ViewModelBase
     {
         private readonly RelayCommand<TimeSpan> _reset;
         private readonly RelayCommand _startStop;
+        private readonly IDisposable _timeObserver;
         private TimeSpan _remaining;
+        private DateTime? previous = null;
+        private bool disposed;
+        private bool isStarted;
+        private bool atoshibaraku;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="StopWatchViewModel"/> class.
+        ///   Creates a new instance of the <see cref="StopWatchViewModel" /> class.
         /// </summary>
-        /// <param name="initial">The initial time set on the stopwatch.</param>
-        public StopWatchViewModel(TimeSpan initial)
+        /// <param name="time"> An source of time events. </param>
+        public StopWatchViewModel(IObservable<DateTime> time)
         {
-            _remaining = initial;
+            _timeObserver = time
+                .ObserveOn(Scheduler.CurrentThread) // observe on the GUI thread!
+                .Subscribe(
+                    t =>
+                    {
+                        var difference = t - (previous ?? t);
+                        previous = t;
+                        if (isStarted)
+                        {
+                            _remaining -= difference;
+                        }
+                    });
 
-            var stopwatch = new Stopwatch(); // measures the time, needs to be more exact
-            var timer = new DispatcherTimer(); // updates the GUI, reads the stopwatch
-            bool atoshibaraku = false;
+            _startStop = new RelayCommand(() => { isStarted = !isStarted; });
 
-            timer.Interval = TimeSpan.FromMilliseconds(1);
-            timer.Tick += (s, e) =>
-            {
-                TimeSpan nextRemaining = initial - stopwatch.Elapsed;
-
-                // match end
-                if (nextRemaining.Ticks <= 0)
+            _reset = new RelayCommand<TimeSpan>(
+                t =>
                 {
-                    _remaining = TimeSpan.FromSeconds(0);
-                    OnMatchEnd();
-                    OnPropertyChanged(() => Remaining);
-                    timer.Stop();
-                    stopwatch.Stop();
-                    return;
-                }
-
-                // normal elapsed tick event
-                _remaining = nextRemaining;
-                OnPropertyChanged(() => Remaining);
-
-                // atoshibaraku logic
-                if (nextRemaining.TotalSeconds < 10 && !atoshibaraku)
-                {
-                    atoshibaraku = true;
-                    OnAtoshibaraku();
-                }
-            };
-
-            _startStop = new RelayCommand(() =>
-            {
-                if (timer.IsEnabled)
-                {
-                    stopwatch.Stop();
-                    timer.Stop();
-                }
-                else
-                {
-                    stopwatch.Start();
-                    timer.Start();
-                }
-            });
-
-            _reset = new RelayCommand<TimeSpan>(t =>
-            {
-                timer.Stop();
-                stopwatch.Stop();
-                stopwatch.Reset();
-                initial = t;
-                atoshibaraku = false;
-                _remaining = t;
-                OnPropertyChanged(() => Remaining);
-            });
+                    isStarted = false;
+                    atoshibaraku = false;
+                    _remaining = t;
+                });
         }
 
         /// <summary>
-        /// Gets the command for resetting the stopwatch to an interval given with the command argument.
+        ///   Gets the command for resetting the stopwatch to an interval given with the command argument.
         /// </summary>
         public RelayCommand<TimeSpan> Reset
         {
@@ -88,7 +62,7 @@ namespace KarateSemaphore
         }
 
         /// <summary>
-        /// Gets the command for toggling the start and paused state of the stopwatch.
+        ///   Gets the command for toggling the start and paused state of the stopwatch.
         /// </summary>
         public RelayCommand StartStop
         {
@@ -96,7 +70,7 @@ namespace KarateSemaphore
         }
 
         /// <summary>
-        /// Gets the raining time of the current match.
+        ///   Gets the raining time of the current match.
         /// </summary>
         public TimeSpan Remaining
         {
@@ -104,17 +78,17 @@ namespace KarateSemaphore
         }
 
         /// <summary>
-        /// Event that happen 10 seconds before the <see cref="MatchEnd"/> event.
+        ///   Event that happen 10 seconds before the <see cref="MatchEnd" /> event.
         /// </summary>
         public event EventHandler Atoshibaraku = delegate { };
 
         /// <summary>
-        /// Event that signals the end of a match.
+        ///   Event that signals the end of a match.
         /// </summary>
         public event EventHandler MatchEnd = delegate { };
 
         /// <summary>
-        /// Raises the <see cref="Atoshibaraku"/> event.
+        ///   Raises the <see cref="Atoshibaraku" /> event.
         /// </summary>
         private void OnAtoshibaraku()
         {
@@ -122,11 +96,25 @@ namespace KarateSemaphore
         }
 
         /// <summary>
-        /// Raises the <see cref="MatchEnd"/> event.
+        ///   Raises the <see cref="MatchEnd" /> event.
         /// </summary>
         private void OnMatchEnd()
         {
             Dispatcher.CurrentDispatcher.Invoke(MatchEnd, this, EventArgs.Empty);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposed)
+            {
+                return;
+            }
+            if (disposing && _timeObserver != null)
+            {
+                _timeObserver.Dispose();
+            }
+            disposed = true;
         }
     }
 }
