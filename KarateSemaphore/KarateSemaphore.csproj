@@ -37,8 +37,8 @@
     <SuiteName>m0sa.net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -122,7 +122,7 @@
     <Compile Include="Events\EventManagerViewModel.cs" />
     <Compile Include="Events\AwardEvent.cs" />
     <Compile Include="Events\PenaltyEvent.cs" />
-    <Compile Include="Events\RelayEvent.cs" />
+    <Compile Include="Events\KnockdownEvent.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\TimestampedEvent.cs" />

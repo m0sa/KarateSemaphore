@@ -38,7 +38,7 @@ namespace KarateSemaphore
             stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
             var aka = new CompetitorViewModel(Belt.Aka, eventManager);
             var ao = new CompetitorViewModel(Belt.Ao, eventManager);
-            var vm = new Semaphore(stopWatch, eventManager, aka, ao);
+            var vm = new SemaphoreViewModel(stopWatch, eventManager, aka, ao);
             vm.Time.Atoshibaraku += (s, e) => Dispatcher.Invoke(atoshibaraku);
             vm.Time.MatchEnd += (s, e) => Dispatcher.Invoke(matchEnd);
 
@@ -95,12 +95,13 @@ namespace KarateSemaphore
                 });
         }
 
-        private void SetupControllerWindow(Window controller, Semaphore vm)
+        private void SetupControllerWindow(Window controller, SemaphoreViewModel vm)
         {
             controller.Title = TitlePrefix + "Scoreboard Controller";
             controller.PreviewKeyDown += (s, e) => HandlePreviewKey(controller, e);
             controller.InputBindings.Add(new KeyBinding(vm.Time.StartStop, new KeyGesture(Key.Space)));
             controller.InputBindings.Add(new KeyBinding(vm.Reset, new KeyGesture(Key.F9)));
+            controller.InputBindings.Add(new KeyBinding(vm.ToggleKnockdownMode, new KeyGesture(Key.F10)));
             controller.PreviewMouseDown += (s, e) => HandleFocus(controller);
             controller.Closed += (s, e) => Shutdown(0);
         }

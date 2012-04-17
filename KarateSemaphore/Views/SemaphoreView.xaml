@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:vm="clr-namespace:KarateSemaphore" xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance vm:Semaphore, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance vm:SemaphoreViewModel, IsDesignTimeCreatable=True}"
         d:DesignHeight="300" d:DesignWidth="582">
     <UserControl.Triggers>
         <EventTrigger SourceName="previewNormal" RoutedEvent="Mouse.PreviewMouseDown">

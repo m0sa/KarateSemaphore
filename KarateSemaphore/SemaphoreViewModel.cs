@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Linq;
 using System.Windows.Input;
 using KarateSemaphore.Events;
 
@@ -11,25 +12,26 @@ namespace KarateSemaphore
     /// <summary>
     ///   The base view model used for the controller and display views.
     /// </summary>
-    public class Semaphore : ViewModelBase, ISemaphore
+    public class SemaphoreViewModel : ViewModelBase, ISemaphore
     {
         private readonly ICompetitor _aka;
         private readonly ICompetitor _ao;
         private readonly RelayCommand _reset;
+        private readonly RelayCommand _toggleKnockdownMode;
         private readonly IStopWatch _time;
         private readonly IEventManager _eventManager;
         private TimeSpan _resetTime;
 
-        /// <summary>
-        ///   Creates a new instance of the <see cref="Semaphore" /> class.
-        /// </summary>
-        public Semaphore(IStopWatch time, IEventManager eventManager, ICompetitor aka, ICompetitor ao)
+        public SemaphoreViewModel()
+            : this(null, null, null, null)
         {
-            if (time == null) throw new ArgumentNullException("time");
-            if (eventManager == null) throw new ArgumentNullException("eventManager");
-            if (aka.Belt != Belt.Aka) throw new ArgumentException("Expected Belt.Aka", "aka");
-            if (ao.Belt != Belt.Ao) throw new ArgumentException("Expected Belt.Ao", "ao");
+        }
 
+        /// <summary>
+        ///   Creates a new instance of the <see cref="SemaphoreViewModel" /> class.
+        /// </summary>
+        public SemaphoreViewModel(IStopWatch time, IEventManager eventManager, ICompetitor aka, ICompetitor ao)
+        {
             _eventManager = eventManager;
             _aka = aka;
             _ao = ao; 
@@ -45,6 +47,19 @@ namespace KarateSemaphore
 
                     _time.Reset.Execute(_resetTime);
                     _eventManager.Clear();
+
+                    OnPropertyChanged(() => IsKnockdown);
+                });
+
+            _toggleKnockdownMode = new RelayCommand(
+                () =>
+                {
+                    if (IsKnockdown)
+                        EventManager.Undo(1);
+                    else
+                        EventManager.AddAndExecute(new KnockdownEvent(this));
+
+                    OnPropertyChanged(() => IsKnockdown);
                 });
         }
 
@@ -88,6 +103,20 @@ namespace KarateSemaphore
         public ICompetitor Ao
         {
             get { return _ao; }
+        }
+
+        public bool IsKnockdown
+        {
+            get { 
+                return 
+                    EventManager.Position > -1 &&
+                    EventManager.Events.ElementAt(EventManager.Position) is KnockdownEvent; 
+            }
+        }
+
+        public ICommand ToggleKnockdownMode
+        {
+            get { return _toggleKnockdownMode; }
         }
     }
 }

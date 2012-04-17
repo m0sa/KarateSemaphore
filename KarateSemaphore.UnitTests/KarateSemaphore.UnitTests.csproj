@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventManagerViewModelTest.cs" />
+    <Compile Include="SemaphoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Given_a_StopWatchViewModel_and_an_one_minute_interval.cs" />
     <Compile Include="ViewModelBaseTest.cs" />

@@ -36,5 +36,15 @@ namespace KarateSemaphore
         ///   Gets the view model for the competitor with the <see cref="Belt.Ao" /> <see cref="Belt" /> .
         /// </summary>
         ICompetitor Ao { get; }
+
+        /// <summary>
+        ///   Gets a value indicating whether the semaphore is in the knockdown mode.
+        /// </summary>
+        bool IsKnockdown { get;  }
+
+        /// <summary>
+        ///   Gets the command that toggles the knockdown mode of the semaphore.
+        /// </summary>
+        ICommand ToggleKnockdownMode { get; }
     }
 }

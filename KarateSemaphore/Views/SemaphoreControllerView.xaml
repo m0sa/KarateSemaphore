@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:vm="clr-namespace:KarateSemaphore" xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance vm:Semaphore, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance vm:SemaphoreViewModel, IsDesignTimeCreatable=True}"
         d:DesignHeight="406" d:DesignWidth="540">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -32,18 +32,29 @@
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="{Binding ElementName=semaphore, Path=IsInversed, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='0||1'}"  Grid.RowSpan="2">
+        <StackPanel 
+            IsEnabled="{Binding Path=IsKnockdown, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='False||True'}"
+            Grid.Column="{Binding ElementName=semaphore, Path=IsInversed, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='0||1'}"  
+            Grid.RowSpan="2">
             <Border Background="{Binding Source={StaticResource ao}}" Height="15" />
-            <vm:CompetitorControllerView DataContext="{Binding Ao}" />
+            <vm:CompetitorControllerView DataContext="{Binding Ao}" IsEnabled="{Binding }" />
             <Border Background="{Binding Source={StaticResource ao}}" Height="15" />
         </StackPanel>
-        <StackPanel Grid.Column="{Binding ElementName=semaphore, Path=IsInversed, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='1||0'}"  Grid.RowSpan="2">
+        <StackPanel 
+            IsEnabled="{Binding Path=IsKnockdown, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='False||True'}"
+            Grid.Column="{Binding ElementName=semaphore, Path=IsInversed, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='1||0'}"  
+            Grid.RowSpan="2">
             <Border Background="{Binding Source={StaticResource aka}}" Height="15" />
             <vm:CompetitorControllerView DataContext="{Binding Aka}" />
             <Border Background="{Binding Source={StaticResource aka}}" Height="15" />
         </StackPanel>
-        <Border Grid.ColumnSpan="2" Grid.Row="2"  Grid.RowSpan="1">
+        <Border Grid.Row="2"  Grid.Column="0">
             <Button Content="Start / Pause (Space)" Command="{Binding Path=Time.StartStop}" />
+        </Border>
+        <Border Grid.Row="2"  Grid.Column="1">
+            <Button 
+                Content="{Binding Path=IsKnockdown, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='Cancel knockdown (F10)||Knockdown (F10)'}"
+                Command="{Binding Path=ToggleKnockdownMode}" />
         </Border>
         <vm:SemaphoreView x:Name="semaphore" Grid.Column="2" Margin="5" IsInversed="True" />
         <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Path=EventManager.Events}" SelectedIndex="{Binding Path=EventManager.Position, Mode=OneWay}" DisplayMemberPath="Display" >
@@ -59,7 +70,10 @@
             </ListBox.ItemContainerStyle>
         </ListBox>
         <Border Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Background="Yellow"></Border>
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Grid 
+            IsEnabled="{Binding Path=IsKnockdown, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='False||True'}"
+            Grid.Row="2" 
+            Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -67,7 +81,10 @@
             <Button Content="&lt;" Command="{Binding Path=EventManager.Step}" CommandParameter="-1" />
             <Button Content="&gt;" Command="{Binding Path=EventManager.Step}" CommandParameter="1" Grid.Column="1" />
         </Grid>
-        <TextBox Grid.ColumnSpan="2" Grid.Row="3" Text="{Binding Path=ResetTime, Converter={StaticResource ResourceKey=timeConverter}}"  />
+        <TextBox Grid.ColumnSpan="2" 
+                 Grid.Row="3" 
+                 Margin="1"
+                 Text="{Binding Path=ResetTime, Converter={StaticResource ResourceKey=timeConverter}}"  />
         <Button Grid.Column="2" Grid.Row="3" Content="Reset (F9)" Command="{Binding Path=Reset}" />
     </Grid>
 </UserControl>
