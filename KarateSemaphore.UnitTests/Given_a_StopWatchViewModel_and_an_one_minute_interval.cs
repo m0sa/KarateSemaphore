@@ -1,13 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿#region
 
+using System;
+using System.Linq;
+using System.Reactive;
+using Microsoft.Reactive.Testing;
 using NUnit.Framework;
+
+#endregion
 
 namespace KarateSemaphore.UnitTests
 {
-    using System.Reactive;
-    using Microsoft.Reactive.Testing;
-
     [TestFixture]
     public class Given_a_StopWatchViewModel_and_an_one_minute_interval
     {
@@ -28,15 +30,16 @@ namespace KarateSemaphore.UnitTests
             var now = DateTime.Now;
             var timeSchedule = _scheduler.CreateHotObservable(
                 Enumerable
-                .Range(0, 181)
-                .Select(i => new Recorded<Notification<DateTime>>(i, Notification.CreateOnNext(now.AddSeconds(i))))
-                .ToArray());
+                    .Range(0, 181)
+                    .Select(i => new Recorded<Notification<DateTime>>(i, Notification.CreateOnNext(now.AddSeconds(i))))
+                    .ToArray());
             _instance = new StopWatchViewModel(timeSchedule);
             _instance.Reset.Execute(_interval);
         }
 
         [TearDown]
-        public void Teardown() {
+        public void Teardown()
+        {
             _instance.Dispose();
         }
 
@@ -75,12 +78,12 @@ namespace KarateSemaphore.UnitTests
         public void When_paused_time_is_not_updated()
         {
             StartStop();
-            _scheduler.AdvanceBy(1);          // 1 sec
-            StartStop();                      // Pause
-            _scheduler.AdvanceBy(2);          // 2 sec, paused...
-            StartStop();                      // Continue
-            _scheduler.AdvanceBy(1);          // 1 sec
-            
+            _scheduler.AdvanceBy(1); // 1 sec
+            StartStop(); // Pause
+            _scheduler.AdvanceBy(2); // 2 sec, paused...
+            StartStop(); // Continue
+            _scheduler.AdvanceBy(1); // 1 sec
+
             Assert.That(_instance.Remaining, Is.EqualTo(TimeSpan.FromSeconds(58)));
         }
 

@@ -8,3 +8,4 @@ packages/*
 *.DotSettings
 *.gpState
 */publish/*
+KarateSemaphore.1.2.dotCover

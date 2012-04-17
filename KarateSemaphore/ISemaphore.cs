@@ -30,11 +30,11 @@ namespace KarateSemaphore
         /// <summary>
         ///   Gets the view model for the competitor with the <see cref="Belt.Aka" /> <see cref="Belt" /> .
         /// </summary>
-        CompetitorViewModel Aka { get; }
+        ICompetitor Aka { get; }
 
         /// <summary>
         ///   Gets the view model for the competitor with the <see cref="Belt.Ao" /> <see cref="Belt" /> .
         /// </summary>
-        CompetitorViewModel Ao { get; }
+        ICompetitor Ao { get; }
     }
 }

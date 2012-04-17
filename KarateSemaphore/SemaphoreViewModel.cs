@@ -13,8 +13,8 @@ namespace KarateSemaphore
     /// </summary>
     public class Semaphore : ViewModelBase, ISemaphore
     {
-        private readonly CompetitorViewModel _aka;
-        private readonly CompetitorViewModel _ao;
+        private readonly ICompetitor _aka;
+        private readonly ICompetitor _ao;
         private readonly RelayCommand _reset;
         private readonly IStopWatch _time;
         private readonly IEventManager _eventManager;
@@ -23,11 +23,16 @@ namespace KarateSemaphore
         /// <summary>
         ///   Creates a new instance of the <see cref="Semaphore" /> class.
         /// </summary>
-        public Semaphore(IStopWatch time, IEventManager eventManager)
+        public Semaphore(IStopWatch time, IEventManager eventManager, ICompetitor aka, ICompetitor ao)
         {
+            if (time == null) throw new ArgumentNullException("time");
+            if (eventManager == null) throw new ArgumentNullException("eventManager");
+            if (aka.Belt != Belt.Aka) throw new ArgumentException("Expected Belt.Aka", "aka");
+            if (ao.Belt != Belt.Ao) throw new ArgumentException("Expected Belt.Ao", "ao");
+
             _eventManager = eventManager;
-            _aka = new CompetitorViewModel(Belt.Aka, _eventManager);
-            _ao = new CompetitorViewModel(Belt.Ao, _eventManager);
+            _aka = aka;
+            _ao = ao; 
             _resetTime = TimeSpan.FromMinutes(3);
 
 
@@ -43,7 +48,7 @@ namespace KarateSemaphore
                 });
         }
 
-        private static void ResetCompetitor(CompetitorViewModel competitor)
+        private static void ResetCompetitor(ICompetitor competitor)
         {
             competitor.ChangeC1.Execute(Penalty.None);
             competitor.ChangeC2.Execute(Penalty.None);
@@ -75,12 +80,12 @@ namespace KarateSemaphore
             get { return _time; }
         }
 
-        public CompetitorViewModel Aka
+        public ICompetitor Aka
         {
             get { return _aka; }
         }
 
-        public CompetitorViewModel Ao
+        public ICompetitor Ao
         {
             get { return _ao; }
         }

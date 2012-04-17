@@ -36,7 +36,9 @@ namespace KarateSemaphore
             var time = Observable.Interval(TimeSpan.FromMilliseconds(50)).Select(x => DateTime.Now);
             var stopWatch = new StopWatchViewModel(time);
             stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
-            var vm = new Semaphore(stopWatch, eventManager);
+            var aka = new CompetitorViewModel(Belt.Aka, eventManager);
+            var ao = new CompetitorViewModel(Belt.Ao, eventManager);
+            var vm = new Semaphore(stopWatch, eventManager, aka, ao);
             vm.Time.Atoshibaraku += (s, e) => Dispatcher.Invoke(atoshibaraku);
             vm.Time.MatchEnd += (s, e) => Dispatcher.Invoke(matchEnd);
 
