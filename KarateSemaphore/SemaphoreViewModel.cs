@@ -1,50 +1,55 @@
-﻿using System;
+﻿#region
 
+using System;
+using System.Windows.Input;
 using KarateSemaphore.Events;
+
+#endregion
 
 namespace KarateSemaphore
 {
-    using System.Reactive.Linq;
-
     /// <summary>
-    /// The base view model used for the controller and display views.
+    ///   The base view model used for the controller and display views.
     /// </summary>
-    public class SemaphoreViewModel : ViewModelBase
+    public class Semaphore : ViewModelBase, ISemaphore
     {
         private readonly CompetitorViewModel _aka;
         private readonly CompetitorViewModel _ao;
         private readonly RelayCommand _reset;
-        private readonly StopWatchViewModel _time;
-        private readonly EventManagerViewModel _eventManager;
+        private readonly IStopWatch _time;
+        private readonly IEventManager _eventManager;
         private TimeSpan _resetTime;
 
-        /// <summary> 
-        /// Creates a new instance of the <see cref="SemaphoreViewModel"/> class.
+        /// <summary>
+        ///   Creates a new instance of the <see cref="Semaphore" /> class.
         /// </summary>
-        public SemaphoreViewModel(StopWatchViewModel time, EventManagerViewModel eventManager)
+        public Semaphore(IStopWatch time, IEventManager eventManager)
         {
             _eventManager = eventManager;
             _aka = new CompetitorViewModel(Belt.Aka, _eventManager);
             _ao = new CompetitorViewModel(Belt.Ao, _eventManager);
             _resetTime = TimeSpan.FromMinutes(3);
 
-            
+
             _time = time;
-            _reset = new RelayCommand(() =>
-            {
-                _eventManager.Clear();
-                _aka.C1 = _aka.C2 = _ao.C1 = _ao.C2 = Penalty.None;
-                _aka.Points = _ao.Points = 0;
-            
-                _time.Reset.Execute(_resetTime);
-            });
+            _reset = new RelayCommand(
+                () =>
+                {
+                    ResetCompetitor(_aka);
+                    ResetCompetitor(_ao);
+
+                    _time.Reset.Execute(_resetTime);
+                    _eventManager.Clear();
+                });
         }
 
-        /// <summary>
-        /// Gets or sets the <see cref="TimeSpan"/> to be used as the argument when the <see cref="Reset"/> 
-        /// command is executed. The given value is the forwarded to the <see cref="StopWatchViewModel.Reset"/> 
-        /// command.
-        /// </summary>
+        private static void ResetCompetitor(CompetitorViewModel competitor)
+        {
+            competitor.ChangeC1.Execute(Penalty.None);
+            competitor.ChangeC2.Execute(Penalty.None);
+            competitor.ChangePoints.Execute(Award.None);
+        }
+
         public TimeSpan ResetTime
         {
             get { return _resetTime; }
@@ -55,41 +60,26 @@ namespace KarateSemaphore
             }
         }
 
-        /// <summary>
-        /// Gets the view model of the event manager.
-        /// </summary>
-        public EventManagerViewModel EventManager
+        public IEventManager EventManager
         {
             get { return _eventManager; }
         }
 
-        /// <summary>
-        /// Gets the command for reseting of the match.
-        /// </summary>
-        public RelayCommand Reset
+        public ICommand Reset
         {
             get { return _reset; }
         }
 
-        /// <summary>
-        /// Gets the view model of the stopwatch.
-        /// </summary>
-        public StopWatchViewModel Time
+        public IStopWatch Time
         {
             get { return _time; }
         }
 
-        /// <summary>
-        /// Gets the view model for the competitor with the <see cref="Belt.Aka"/> <see cref="Belt"/>.
-        /// </summary>
         public CompetitorViewModel Aka
         {
             get { return _aka; }
         }
 
-        /// <summary>
-        /// Gets the view model for the competitor with the <see cref="Belt.Ao"/> <see cref="Belt"/>.
-        /// </summary>
         public CompetitorViewModel Ao
         {
             get { return _ao; }

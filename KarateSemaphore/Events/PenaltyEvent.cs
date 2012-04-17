@@ -8,12 +8,12 @@ namespace KarateSemaphore.Events
 
     public class PenaltyEvent : TimestampedEvent
     {
-        private readonly CompetitorViewModel _competitor;
+        private readonly ICompetitor _competitor;
         private readonly Penalty _penalty;
         private readonly PropertyInfo _propertyInfo;
         private readonly Penalty _initialPenalty;
 
-        public PenaltyEvent(CompetitorViewModel competitor, Penalty penalty, Expression<Func<Penalty>> categoryExpression)
+        public PenaltyEvent(ICompetitor competitor, Penalty penalty, Expression<Func<Penalty>> categoryExpression)
         {
             _competitor = competitor;
             _penalty = penalty;

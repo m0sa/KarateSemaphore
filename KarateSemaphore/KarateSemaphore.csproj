@@ -127,6 +127,9 @@
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\TimestampedEvent.cs" />
     <Compile Include="Award.cs" />
+    <Compile Include="ICompetitor.cs" />
+    <Compile Include="ISemaphore.cs" />
+    <Compile Include="IStopWatch.cs" />
     <Compile Include="Views\CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>

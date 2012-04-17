@@ -3,6 +3,7 @@
 using System;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 #endregion
@@ -12,13 +13,13 @@ namespace KarateSemaphore
     /// <summary>
     ///   A view model for the stopwatch functionality.
     /// </summary>
-    public class StopWatchViewModel : ViewModelBase
+    public class StopWatchViewModel : ViewModelBase, IStopWatch
     {
         private readonly RelayCommand<TimeSpan> _reset;
         private readonly RelayCommand _startStop;
         private readonly IDisposable _timeObserver;
         private TimeSpan _remaining;
-        private DateTime? previous = null;
+        private DateTime? previous;
         private bool disposed;
         private bool isStarted;
         private bool atoshibaraku;
@@ -71,38 +72,23 @@ namespace KarateSemaphore
                 });
         }
 
-        /// <summary>
-        ///   Gets the command for resetting the stopwatch to an interval given with the command argument.
-        /// </summary>
-        public RelayCommand<TimeSpan> Reset
+        public ICommand Reset
         {
             get { return _reset; }
         }
 
-        /// <summary>
-        ///   Gets the command for toggling the start and paused state of the stopwatch.
-        /// </summary>
-        public RelayCommand StartStop
+        public ICommand StartStop
         {
             get { return _startStop; }
         }
 
-        /// <summary>
-        ///   Gets the raining time of the current match.
-        /// </summary>
         public TimeSpan Remaining
         {
             get { return _remaining; }
         }
 
-        /// <summary>
-        ///   Event that happen 10 seconds before the <see cref="MatchEnd" /> event.
-        /// </summary>
         public event EventHandler Atoshibaraku = delegate { };
 
-        /// <summary>
-        ///   Event that signals the end of a match.
-        /// </summary>
         public event EventHandler MatchEnd = delegate { };
 
         /// <summary>
@@ -128,6 +114,8 @@ namespace KarateSemaphore
             {
                 return;
             }
+            Atoshibaraku = null;
+            MatchEnd = null;
             if (disposing && _timeObserver != null)
             {
                 _timeObserver.Dispose();

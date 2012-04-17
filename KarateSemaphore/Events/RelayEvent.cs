@@ -2,7 +2,7 @@
 
 namespace KarateSemaphore.Events
 {
-    public class RelayEvent : IEvent
+    public class RelayEvent : TimestampedEvent
     {
         private readonly Action _redo;
         private readonly Action _undo;
@@ -15,17 +15,17 @@ namespace KarateSemaphore.Events
             _undo = undo ?? delegate { };
         }
 
-        public string Display
+        public override string Display
         {
-            get { return _display; }
+            get { return string.Concat(base.Display, " ", _display); }
         }
 
-        public void Redo()
+        public override void Redo()
         {
             _redo();
         }
 
-        public void Undo()
+        public override void Undo()
         {
             _undo();
         }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:vm="clr-namespace:KarateSemaphore"
         mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance vm:SemaphoreViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance vm:Semaphore, IsDesignTimeCreatable=True}"
         d:DesignHeight="300" d:DesignWidth="582">
     <UserControl.Resources>
         <ResourceDictionary>

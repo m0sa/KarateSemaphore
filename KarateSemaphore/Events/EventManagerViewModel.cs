@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace KarateSemaphore.Events
         private readonly RelayCommand<int> _step;
         private int _current;
 
-        public ReadOnlyObservableCollection<IEvent> Events { get { return _eventsPublic; } }
+        public ICollection<IEvent> Events { get { return _eventsPublic; } }
 
         public int Position { get { return _current - 1; } }
 

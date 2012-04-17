@@ -4,11 +4,11 @@ namespace KarateSemaphore.Events
 {
     public class AwardEvent : TimestampedEvent
     {
-        private readonly CompetitorViewModel _competitor;
+        private readonly ICompetitor _competitor;
         private readonly Award _award;
         private readonly int _initialPoints;
 
-        public AwardEvent(CompetitorViewModel competitor, Award award)
+        public AwardEvent(ICompetitor competitor, Award award)
         {
             _competitor = competitor;
             _award = award;
@@ -22,7 +22,7 @@ namespace KarateSemaphore.Events
 
         public override void Redo()
         {
-            _competitor.Points = _initialPoints + (int)_award;
+            _competitor.Points = _award == Award.None ? 0 : _initialPoints + (int)_award;
         }
 
         public override void Undo()

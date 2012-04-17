@@ -36,7 +36,7 @@ namespace KarateSemaphore
             var time = Observable.Interval(TimeSpan.FromMilliseconds(50)).Select(x => DateTime.Now);
             var stopWatch = new StopWatchViewModel(time);
             stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
-            var vm = new SemaphoreViewModel(stopWatch, eventManager);
+            var vm = new Semaphore(stopWatch, eventManager);
             vm.Time.Atoshibaraku += (s, e) => Dispatcher.Invoke(atoshibaraku);
             vm.Time.MatchEnd += (s, e) => Dispatcher.Invoke(matchEnd);
 
@@ -93,7 +93,7 @@ namespace KarateSemaphore
                 });
         }
 
-        private void SetupControllerWindow(Window controller, SemaphoreViewModel vm)
+        private void SetupControllerWindow(Window controller, Semaphore vm)
         {
             controller.Title = TitlePrefix + "Scoreboard Controller";
             controller.PreviewKeyDown += (s, e) => HandlePreviewKey(controller, e);
