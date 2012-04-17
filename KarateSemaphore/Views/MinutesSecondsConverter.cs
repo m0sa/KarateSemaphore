@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace KarateSemaphore
@@ -31,7 +32,7 @@ namespace KarateSemaphore
             stringValue = stringValue.Trim();
             if(!TimeSpan.TryParseExact(stringValue, Format, CultureInfo.CurrentUICulture, out result))
             {
-                throw new FormatException("Required format: " + Format[0]);
+                return DependencyProperty.UnsetValue;
             }
             return result;
         }
