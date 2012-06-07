@@ -3,20 +3,20 @@ using KarateSemaphore.Events;
 
 namespace KarateSemaphore
 {
-    public class DisplayNameEditorViewModel : ViewModelBase, IDisplayNameSettings
+    public class DisplayTextEditorViewModel : ViewModelBase, IDisplayTextSettings
     {
         private readonly ISemaphore _semaphore;
-        private readonly RelayCommand _changeDisplayNames;
+        private readonly RelayCommand _changeDisplayText;
         private string _aka;
         private string _ao;
 
-        public DisplayNameEditorViewModel() {}
+        public DisplayTextEditorViewModel() {}
 
-        public DisplayNameEditorViewModel(ISemaphore semaphore)
+        public DisplayTextEditorViewModel(ISemaphore semaphore)
         {
             _semaphore = semaphore;
-            _changeDisplayNames = new RelayCommand(
-                () => _semaphore.EventManager.AddAndExecute(new ChangeDisplayNameSettingsEvent(_semaphore, this)));
+            _changeDisplayText = new RelayCommand(
+                () => _semaphore.EventManager.AddAndExecute(new ChangeDisplayTextSettingsEvent(_semaphore, this)));
         }
 
         public string Aka
@@ -33,9 +33,9 @@ namespace KarateSemaphore
         }
 
 
-        public ICommand ChangeDisplayNames
+        public ICommand ChangeDisplayText
         {
-            get { return _changeDisplayNames; }
+            get { return _changeDisplayText; }
         }
     }
 }

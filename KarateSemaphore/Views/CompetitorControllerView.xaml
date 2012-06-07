@@ -9,8 +9,8 @@
              d:DesignHeight="300" d:DesignWidth="200"
              Background="Transparent">
     <StackPanel Margin="4">
-        <TextBlock Margin="4" HorizontalAlignment="Center">Display name</TextBlock>
-        <TextBlock Text="{Binding Path=DisplayName}"></TextBlock>
+        <TextBlock Margin="4" HorizontalAlignment="Center">Display text</TextBlock>
+        <TextBlock Text="{Binding Path=DisplayText}"></TextBlock>
         <TextBlock HorizontalAlignment="Center">Awards</TextBlock>
         <Button Content="Yuko [1]" Command="{Binding Path=ChangePoints}" CommandParameter="Yuko" />
         <Button Content="Waza-Ari [2]" Command="{Binding Path=ChangePoints}" CommandParameter="WazaAri" />

@@ -9,24 +9,24 @@ using NUnit.Framework;
 namespace KarateSemaphore.UnitTests
 {
     [TestFixture]
-    public class ChangeDisplayNameSettingsEventTest
+    public class ChangeDisplayTextSettingsEventTest
     {
-        private IDisplayNameSettings _settings;
+        private IDisplayTextSettings _settings;
         private ISemaphore _semaphore;
-        private ChangeDisplayNameSettingsEvent _command;
+        private ChangeDisplayTextSettingsEvent _command;
 
         [SetUp]
         public void Setup()
         {
-            _settings = Substitute.For<IDisplayNameSettings>();
+            _settings = Substitute.For<IDisplayTextSettings>();
             _settings.Aka.Returns("aka name");
             _settings.Ao.Returns("ao name");
 
             _semaphore = Substitute.For<ISemaphore>();
-            _semaphore.Aka.DisplayName.Returns("aka original");
-            _semaphore.Ao.DisplayName.Returns("ao original");
+            _semaphore.Aka.DisplayText.Returns("aka original");
+            _semaphore.Ao.DisplayText.Returns("ao original");
 
-            _command = new ChangeDisplayNameSettingsEvent(_semaphore, _settings);
+            _command = new ChangeDisplayTextSettingsEvent(_semaphore, _settings);
         }
 
 
@@ -35,8 +35,8 @@ namespace KarateSemaphore.UnitTests
         {
             _command.Redo();
 
-            Assert.That(_semaphore.Aka.DisplayName, Is.EqualTo("aka name"));
-            Assert.That(_semaphore.Ao.DisplayName, Is.EqualTo("ao name"));
+            Assert.That(_semaphore.Aka.DisplayText, Is.EqualTo("aka name"));
+            Assert.That(_semaphore.Ao.DisplayText, Is.EqualTo("ao name"));
         }
 
         [Test]
@@ -45,8 +45,8 @@ namespace KarateSemaphore.UnitTests
             _command.Redo();
             _command.Undo();
 
-            Assert.That(_semaphore.Aka.DisplayName, Is.EqualTo("aka original"));
-            Assert.That(_semaphore.Ao.DisplayName, Is.EqualTo("ao original"));
+            Assert.That(_semaphore.Aka.DisplayText, Is.EqualTo("aka original"));
+            Assert.That(_semaphore.Ao.DisplayText, Is.EqualTo("ao original"));
         }
         [Test]
         public void DisplayName_contains_both_new_names()

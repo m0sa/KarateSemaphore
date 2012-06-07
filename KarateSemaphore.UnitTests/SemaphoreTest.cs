@@ -75,9 +75,9 @@ namespace KarateSemaphore.UnitTests
                 get { return Sut.ToggleKnockdownMode; }
             }
 
-            public ICommand RequestDisplayNameChange
+            public ICommand RequestDisplayTextChange
             {
-                get { return Sut.RequestDisplayNameChange; }
+                get { return Sut.RequestDisplayTextChange; }
             }
         }
 
@@ -216,10 +216,10 @@ namespace KarateSemaphore.UnitTests
             {
                 var modalDialogManager = Substitute.For<IModalDialogManager>();
                 var instance = new Given_A_Semaphore(modalDialogManager: modalDialogManager);
-                instance.RequestDisplayNameChange.Execute(null);
+                instance.RequestDisplayTextChange.Execute(null);
 
                 modalDialogManager.Received().ShowDialog(
-                    Arg.Any<DisplayNameEditorViewModel>(), Arg.Any<Func<DisplayNameEditorViewModel, ICommand>>());
+                    Arg.Any<DisplayTextEditorViewModel>(), Arg.Any<Func<DisplayTextEditorViewModel, ICommand>>());
             }
         }
     }

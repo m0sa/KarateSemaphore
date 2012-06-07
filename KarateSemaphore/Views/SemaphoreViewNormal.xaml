@@ -34,10 +34,10 @@
         <Border Grid.Column="4" Grid.RowSpan="5" Background="{Binding Source={StaticResource ao}}"></Border>
 
         <Viewbox Grid.Column="1" Grid.Row="0">
-            <TextBlock Text="{Binding Path=Aka.DisplayName}" Style="{StaticResource ResourceKey=panelText}" TextAlignment="Center"/>
+            <TextBlock Text="{Binding Path=Aka.DisplayText}" Style="{StaticResource ResourceKey=panelText}" TextAlignment="Center"/>
         </Viewbox>
         <Viewbox Grid.Column="3" Grid.Row="0">
-            <TextBlock Text="{Binding Path=Ao.DisplayName}" Style="{StaticResource ResourceKey=panelText}" TextAlignment="Center"/>
+            <TextBlock Text="{Binding Path=Ao.DisplayText}" Style="{StaticResource ResourceKey=panelText}" TextAlignment="Center"/>
         </Viewbox>
         
         <Viewbox Grid.Column="1" Grid.Row="1">

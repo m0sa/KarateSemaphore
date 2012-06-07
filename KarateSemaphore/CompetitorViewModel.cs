@@ -100,12 +100,12 @@ namespace KarateSemaphore
             get { return _changeC2; }
         }
 
-        private string _displayName;
+        private string _displayText;
 
-        public string DisplayName
+        public string DisplayText
         {
-            get { return _displayName; }
-            set { _displayName = value; OnPropertyChanged(() => DisplayName); }
+            get { return _displayText; }
+            set { _displayText = value; OnPropertyChanged(() => DisplayText); }
         }
     }
 }

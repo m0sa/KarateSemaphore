@@ -51,8 +51,8 @@
         </StackPanel>
         <Border Grid.Row="2"  Grid.Column="0">
             <Button 
-                Content="Competitor names"
-                Command="{Binding Path=RequestDisplayNameChange}" />
+                Content="Edit display text"
+                Command="{Binding Path=RequestDisplayTextChange}" />
         </Border>
         <Border Grid.Row="2"  Grid.Column="1">
             <Button 

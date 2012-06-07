@@ -48,8 +48,8 @@ namespace KarateSemaphore
         ICommand ToggleKnockdownMode { get; }
 
         /// <summary>
-        ///   Gets the command that requests a display name change.
+        ///   Gets the command that requests a display text change.
         /// </summary>
-        ICommand RequestDisplayNameChange { get; }
+        ICommand RequestDisplayTextChange { get; }
     }
 }

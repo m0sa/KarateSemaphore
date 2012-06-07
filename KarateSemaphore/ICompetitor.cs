@@ -48,6 +48,6 @@ namespace KarateSemaphore
         /// <summary>
         /// Gets or sets the name to be displayed for this competitor.
         /// </summary>
-        string DisplayName { get; set; }
+        string DisplayText { get; set; }
     }
 }

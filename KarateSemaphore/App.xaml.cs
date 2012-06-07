@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using KarateSemaphore.Events;
-using KarateSemaphore.Views;
 
 #endregion
 
@@ -166,11 +165,11 @@ namespace KarateSemaphore
 
         public void ShowDialog<T>(T viewModel, Func<T, ICommand> okAction)
         {
-            if (typeof(T) == typeof(DisplayNameEditorViewModel))
+            if (typeof(T) == typeof(DisplayTextEditorViewModel))
             {
-                new ModalWindow(new DisplayNameEditorView(), viewModel, okAction(viewModel))
+                new ModalWindow(new DisplayTextEditorView(), viewModel, okAction(viewModel))
                     {
-                        Title =  TitlePrefix + "Display names editor",
+                        Title =  TitlePrefix + "Display Text Editor",
                         ShowInTaskbar = true,
                         WindowStyle = WindowStyle.ToolWindow,
                         Height = 150

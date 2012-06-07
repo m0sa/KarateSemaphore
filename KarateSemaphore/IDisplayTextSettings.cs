@@ -3,7 +3,7 @@ namespace KarateSemaphore
     /// <summary>
     /// Interface for display name settings.
     /// </summary>
-    public interface IDisplayNameSettings
+    public interface IDisplayTextSettings
     {
         /// <summary>
         /// Gets the display name for the red competitor.
