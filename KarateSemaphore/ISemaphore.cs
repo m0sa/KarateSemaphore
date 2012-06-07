@@ -46,5 +46,10 @@ namespace KarateSemaphore
         ///   Gets the command that toggles the knockdown mode of the semaphore.
         /// </summary>
         ICommand ToggleKnockdownMode { get; }
+
+        /// <summary>
+        ///   Gets the command that requests a display name change.
+        /// </summary>
+        ICommand RequestDisplayNameChange { get; }
     }
 }

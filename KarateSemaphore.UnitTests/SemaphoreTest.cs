@@ -17,7 +17,7 @@ namespace KarateSemaphore.UnitTests
         {
             private readonly ISemaphore _sut;
 
-            public Given_A_Semaphore(IStopWatch stopWatch = null, IEventManager eventManager = null, ICompetitor aka = null, ICompetitor ao = null)
+            public Given_A_Semaphore(IStopWatch stopWatch = null, IEventManager eventManager = null, IModalDialogManager modalDialogManager = null, ICompetitor aka = null, ICompetitor ao = null)
             {
                 var _aka = Substitute.For<ICompetitor>();
                 _aka.Belt.Returns(x => Belt.Aka);
@@ -25,10 +25,10 @@ namespace KarateSemaphore.UnitTests
                 _ao.Belt.Returns(x => Belt.Ao);
                 var _stopwatch = Substitute.For<IStopWatch>();
                 var _eventManager = Substitute.For<IEventManager>();
-
-                _sut = new SemaphoreViewModel(stopWatch ?? _stopwatch, eventManager ?? _eventManager, aka ?? _aka, ao ?? _ao);
+                var _modalDialogManager = Substitute.For<IModalDialogManager>();
+                _sut = new SemaphoreViewModel(stopWatch ?? _stopwatch, eventManager ?? _eventManager, modalDialogManager ?? _modalDialogManager, aka ?? _aka, ao ?? _ao);
             }
-
+            
             protected ISemaphore Sut
             {
                 get { return _sut; }
@@ -73,6 +73,11 @@ namespace KarateSemaphore.UnitTests
             public ICommand ToggleKnockdownMode
             {
                 get { return Sut.ToggleKnockdownMode; }
+            }
+
+            public ICommand RequestDisplayNameChange
+            {
+                get { return Sut.RequestDisplayNameChange; }
             }
         }
 
@@ -130,7 +135,7 @@ namespace KarateSemaphore.UnitTests
             }
         }
 
-        public class And_match_is_in_the_completed : When_Reset_command_executed
+        public class And_match_is_completed : When_Reset_command_executed
         {
             protected override ISemaphore CreateSut()
             {
@@ -200,6 +205,21 @@ namespace KarateSemaphore.UnitTests
             public void Stopwatch_was_not_started()
             {
                 _sut.Time.StartStop.DidNotReceiveWithAnyArgs().Execute(null);
+            }
+        }
+    
+        [TestFixture]
+        public class InteractionTest
+        {
+            [Test]
+            public void Modal_dialog_is_requested_on_RequestDisplayNameChange_command()
+            {
+                var modalDialogManager = Substitute.For<IModalDialogManager>();
+                var instance = new Given_A_Semaphore(modalDialogManager: modalDialogManager);
+                instance.RequestDisplayNameChange.Execute(null);
+
+                modalDialogManager.Received().ShowDialog(
+                    Arg.Any<DisplayNameEditorViewModel>(), Arg.Any<Func<DisplayNameEditorViewModel, ICommand>>());
             }
         }
     }

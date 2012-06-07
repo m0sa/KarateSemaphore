@@ -44,5 +44,10 @@ namespace KarateSemaphore
         /// An <see cref="Penalty"/> argument is required when executing.
         /// </summary>
         ICommand ChangeC2 { get; }
+
+        /// <summary>
+        /// Gets or sets the name to be displayed for this competitor.
+        /// </summary>
+        string DisplayName { get; set; }
     }
 }

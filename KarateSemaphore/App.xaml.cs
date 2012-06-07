@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using KarateSemaphore.Events;
+using KarateSemaphore.Views;
 
 #endregion
 
@@ -18,7 +19,7 @@ namespace KarateSemaphore
     /// <summary>
     ///   Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : IModalDialogManager
     {
         private const string TitlePrefix = "Karate Semaphore | ";
 
@@ -38,7 +39,7 @@ namespace KarateSemaphore
             stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
             var aka = new CompetitorViewModel(Belt.Aka, eventManager);
             var ao = new CompetitorViewModel(Belt.Ao, eventManager);
-            var vm = new SemaphoreViewModel(stopWatch, eventManager, aka, ao);
+            var vm = new SemaphoreViewModel(stopWatch, eventManager, this, aka, ao);
             vm.Time.Atoshibaraku += (s, e) => Dispatcher.Invoke(atoshibaraku);
             vm.Time.MatchEnd += (s, e) => Dispatcher.Invoke(matchEnd);
 
@@ -161,6 +162,20 @@ namespace KarateSemaphore
                        mplayer.Volume = 1.0;
                        mplayer.Play();
                    };
+        }
+
+        public void ShowDialog<T>(T viewModel, Func<T, ICommand> okAction)
+        {
+            if (typeof(T) == typeof(DisplayNameEditorViewModel))
+            {
+                new ModalWindow(new DisplayNameEditorView(), viewModel, okAction(viewModel))
+                    {
+                        Title =  TitlePrefix + "Display names editor",
+                        ShowInTaskbar = true,
+                        WindowStyle = WindowStyle.ToolWindow,
+                        Height = 150
+                    }.ShowDialog();
+            }
         }
     }
 }

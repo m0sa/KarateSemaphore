@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="KarateSemaphore.Views.DisplayNameEditorView"
+             
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:vm="clr-namespace:KarateSemaphore" xmlns:System="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance vm:DisplayNameEditorViewModel, IsDesignTimeCreatable=True}"
+        d:DesignHeight="300" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border  Grid.Row="0" Background="{Binding Source={StaticResource ao}}" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Ao}" Height="Auto" AcceptsReturn="True" />
+        <Border  Grid.Row="1" Background="{Binding Source={StaticResource aka}}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Aka}" Height="Auto" AcceptsReturn="True" />
+    </Grid>
+</UserControl>

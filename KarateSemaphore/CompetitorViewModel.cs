@@ -99,5 +99,13 @@ namespace KarateSemaphore
         {
             get { return _changeC2; }
         }
+
+        private string _displayName;
+
+        public string DisplayName
+        {
+            get { return _displayName; }
+            set { _displayName = value; OnPropertyChanged(() => DisplayName); }
+        }
     }
 }

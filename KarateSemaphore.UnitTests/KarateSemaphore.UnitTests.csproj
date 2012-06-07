@@ -83,6 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeDisplayNameSettingsEventTest.cs" />
+    <Compile Include="DisplayNameEditorViewModelTest.cs" />
     <Compile Include="EventManagerViewModelTest.cs" />
     <Compile Include="SemaphoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

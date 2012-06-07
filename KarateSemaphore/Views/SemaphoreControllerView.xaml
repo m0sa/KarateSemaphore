@@ -26,6 +26,7 @@
             <RowDefinition Height="226*"/>
             <RowDefinition Height="25" />
             <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
@@ -49,15 +50,20 @@
             <Border Background="{Binding Source={StaticResource aka}}" Height="15" />
         </StackPanel>
         <Border Grid.Row="2"  Grid.Column="0">
-            <Button Content="Start / Pause (Space)" Command="{Binding Path=Time.StartStop}" />
+            <Button 
+                Content="Competitor names"
+                Command="{Binding Path=RequestDisplayNameChange}" />
         </Border>
         <Border Grid.Row="2"  Grid.Column="1">
             <Button 
                 Content="{Binding Path=IsKnockdown, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='Cancel knockdown (F10)||Knockdown (F10)'}"
                 Command="{Binding Path=ToggleKnockdownMode}" />
         </Border>
+        <Border Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2">
+            <Button Content="Start / Pause (Space)" Command="{Binding Path=Time.StartStop}" />
+        </Border>
         <vm:SemaphoreView x:Name="semaphore" Grid.Column="2" Margin="5" IsInversed="True" />
-        <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Path=EventManager.Events}" SelectedIndex="{Binding Path=EventManager.Position, Mode=OneWay}" DisplayMemberPath="Display" >
+        <ListBox Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Path=EventManager.Events}" SelectedIndex="{Binding Path=EventManager.Position, Mode=OneWay}" DisplayMemberPath="Display" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Focusable" Value="False"/>
@@ -69,10 +75,10 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
-        <Border Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Background="Yellow"></Border>
+        <Border Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Background="Yellow"></Border>
         <Grid 
             IsEnabled="{Binding Path=IsKnockdown, Converter={StaticResource ResourceKey=ternaryConverter}, ConverterParameter='False||True'}"
-            Grid.Row="2" 
+            Grid.Row="3" 
             Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -82,9 +88,9 @@
             <Button Content="&gt;" Command="{Binding Path=EventManager.Step}" CommandParameter="1" Grid.Column="1" />
         </Grid>
         <TextBox Grid.ColumnSpan="2" 
-                 Grid.Row="3" 
+                 Grid.Row="4" 
                  Margin="1"
                  Text="{Binding Path=ResetTime, Converter={StaticResource ResourceKey=timeConverter}}"  />
-        <Button Grid.Column="2" Grid.Row="3" Content="Reset (F9)" Command="{Binding Path=Reset}" />
+        <Button Grid.Column="2" Grid.Row="4" Content="Reset (F9)" Command="{Binding Path=Reset}" />
     </Grid>
 </UserControl>

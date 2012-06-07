@@ -37,7 +37,7 @@
     <SuiteName>m0sa.net</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -119,6 +119,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Belt.cs" />
+    <Compile Include="DisplayNameEditorViewModel.cs" />
+    <Compile Include="Events\ChangeDisplayNameSettingsEvent.cs" />
     <Compile Include="Events\EventManagerViewModel.cs" />
     <Compile Include="Events\AwardEvent.cs" />
     <Compile Include="Events\PenaltyEvent.cs" />
@@ -128,12 +130,20 @@
     <Compile Include="Events\TimestampedEvent.cs" />
     <Compile Include="Award.cs" />
     <Compile Include="ICompetitor.cs" />
+    <Compile Include="IDisplayNameSettings.cs" />
+    <Compile Include="IModalDialogManager.cs" />
     <Compile Include="ISemaphore.cs" />
     <Compile Include="IStopWatch.cs" />
+    <Compile Include="ModalWindow.xaml.cs">
+      <DependentUpon>ModalWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CompetitorViewModel.cs" />
+    <Compile Include="Views\DisplayNameEditorView.xaml.cs">
+      <DependentUpon>DisplayNameEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SemaphoreViewNormal.xaml.cs">
       <DependentUpon>SemaphoreViewNormal.xaml</DependentUpon>
     </Compile>
@@ -192,7 +202,15 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ModalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CompetitorControllerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayNameEditorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

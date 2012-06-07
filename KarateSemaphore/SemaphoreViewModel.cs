@@ -18,20 +18,23 @@ namespace KarateSemaphore
         private readonly ICompetitor _ao;
         private readonly RelayCommand _reset;
         private readonly RelayCommand _toggleKnockdownMode;
+        private readonly RelayCommand _requestDisplayNameChange;
         private readonly IStopWatch _time;
         private readonly IEventManager _eventManager;
+        private readonly DisplayNameEditorViewModel _displayNameEditor;
         private TimeSpan _resetTime;
 
         public SemaphoreViewModel()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
         /// <summary>
         ///   Creates a new instance of the <see cref="SemaphoreViewModel" /> class.
         /// </summary>
-        public SemaphoreViewModel(IStopWatch time, IEventManager eventManager, ICompetitor aka, ICompetitor ao)
+        public SemaphoreViewModel(IStopWatch time, IEventManager eventManager, IModalDialogManager modalDialogManager, ICompetitor aka, ICompetitor ao)
         {
+            _displayNameEditor = new DisplayNameEditorViewModel(this);
             _eventManager = eventManager;
             _aka = aka;
             _ao = ao; 
@@ -61,6 +64,8 @@ namespace KarateSemaphore
 
                     OnPropertyChanged(() => IsKnockdown);
                 });
+            _requestDisplayNameChange = new RelayCommand(
+                () => modalDialogManager.ShowDialog(_displayNameEditor, e => e.ChangeDisplayNames));
         }
 
         private static void ResetCompetitor(ICompetitor competitor)
@@ -117,6 +122,11 @@ namespace KarateSemaphore
         public ICommand ToggleKnockdownMode
         {
             get { return _toggleKnockdownMode; }
+        }
+
+        public ICommand RequestDisplayNameChange
+        {
+            get { return _requestDisplayNameChange; }
         }
     }
 }

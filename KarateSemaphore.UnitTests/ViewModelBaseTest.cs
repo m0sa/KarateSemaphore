@@ -1,5 +1,4 @@
 ﻿using System;
-
 using NUnit.Framework;
 
 namespace KarateSemaphore.UnitTests
@@ -14,10 +13,10 @@ namespace KarateSemaphore.UnitTests
             public string Property
             {
                 get { return _property; }
-                set 
-                { 
-                    _property = value; 
-                    OnPropertyChanged(() => Property); 
+                set
+                {
+                    _property = value;
+                    OnPropertyChanged(() => Property);
                 }
             }
         }
