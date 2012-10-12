@@ -101,6 +101,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Reactive">
       <HintPath>..\packages\Rx-Main.1.0.11226\lib\Net4\System.Reactive.dll</HintPath>
     </Reference>
@@ -118,7 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationSettings.cs" />
+    <Compile Include="AssemblyBasedApplicationInfo.cs" />
     <Compile Include="Belt.cs" />
+    <Compile Include="ClickOnceApplicationInfo.cs" />
     <Compile Include="DisplayTextEditorViewModel.cs" />
     <Compile Include="Events\ChangeDisplayTextSettingsEvent.cs" />
     <Compile Include="Events\EventManagerViewModel.cs" />
@@ -132,17 +136,28 @@
     <Compile Include="ICompetitor.cs" />
     <Compile Include="IDisplayTextSettings.cs" />
     <Compile Include="IModalDialogManager.cs" />
+    <Compile Include="IApplicationInfo.cs" />
     <Compile Include="ISemaphore.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="IStopWatch.cs" />
     <Compile Include="ModalWindow.xaml.cs">
       <DependentUpon>ModalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AboutBox.xaml.cs">
+      <DependentUpon>AboutBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CompetitorViewModel.cs" />
+    <Compile Include="Views\ControllerWindow.xaml.cs">
+      <DependentUpon>ControllerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DisplayTextEditorView.xaml.cs">
       <DependentUpon>DisplayTextEditorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisplayWindow.xaml.cs">
+      <DependentUpon>DisplayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SemaphoreViewNormal.xaml.cs">
       <DependentUpon>SemaphoreViewNormal.xaml</DependentUpon>
@@ -196,7 +211,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
@@ -206,11 +221,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AboutBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CompetitorControllerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ControllerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DisplayTextEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisplayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

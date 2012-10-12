@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace KarateSemaphore
@@ -8,7 +6,7 @@ namespace KarateSemaphore
     /// <summary>
     /// Interaction logic for ModalWindow.xaml
     /// </summary>
-    public partial class ModalWindow : Window
+    public partial class ModalWindow
     {
         
         public ModalWindow()
@@ -18,6 +16,10 @@ namespace KarateSemaphore
 
         public ModalWindow(UIElement view, object viewModel, ICommand okCommand) : this()
         {
+            Owner = Application.Current.MainWindow;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            ShowInTaskbar = true;
+
             theGrid.Children.Add(view);
             DataContext = viewModel;
             okButton.Command = okCommand;

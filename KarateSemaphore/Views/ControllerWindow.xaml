@@ -1,0 +1,24 @@
+﻿<Window x:Class="KarateSemaphore.ControllerWindow"
+        x:Name="controllerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:local="clr-namespace:KarateSemaphore"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="_Settings">
+                <MenuItem Header="Short_cuts"></MenuItem>
+                <MenuItem Header="So_unds"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About" Click="Menu_AboutBox_Click"/>
+                <MenuItem Header="Home_page" Click="Menu_Homepage_Click"/>
+            </MenuItem>
+        </Menu>
+        <local:SemaphoreControllerView x:Name="Controller" Grid.Row="1" 
+            DataContext="{Binding Semaphore, ElementName=controllerWindow}" />
+    </Grid>
+</Window>
