@@ -15,15 +15,16 @@ namespace KarateSemaphore
     /// </summary>
     public class StopWatchViewModel : ViewModelBase, IStopWatch
     {
+        private readonly RelayCommand<TimeSpan> _delta;
         private readonly RelayCommand<TimeSpan> _reset;
         private readonly RelayCommand _startStop;
         private readonly IDisposable _timeObserver;
+        private bool _atoshibaraku;
+        private bool _disposed;
+        private bool _isStarted;
+        private bool _matchEnd;
+        private DateTime? _previous;
         private TimeSpan _remaining;
-        private DateTime? previous;
-        private bool disposed;
-        private bool isStarted;
-        private bool atoshibaraku;
-        private bool matchEnd;
 
         /// <summary>
         ///   Creates a new instance of the <see cref="StopWatchViewModel" /> class.
@@ -35,42 +36,55 @@ namespace KarateSemaphore
                 .ObserveOn(Scheduler.CurrentThread) // observe on the GUI thread!
                 .Subscribe(
                     t =>
-                    {
-                        var difference = t - (previous ?? t);
-                        previous = t;
-                        if (isStarted && difference.Ticks > 0)
                         {
-                            _remaining -= difference;
-                            if (_remaining <= TimeSpan.Zero)
+                            TimeSpan difference = t - (_previous ?? t);
+                            _previous = t;
+                            if (_isStarted && difference.Ticks > 0)
                             {
-                                _remaining = TimeSpan.Zero;
-                                if (!matchEnd)
+                                _remaining -= difference;
+                                if (_remaining <= TimeSpan.Zero)
                                 {
-                                    matchEnd = true;
-                                    OnMatchEnd();
+                                    _remaining = TimeSpan.Zero;
+                                    if (!_matchEnd)
+                                    {
+                                        _matchEnd = true;
+                                        OnMatchEnd();
+                                    }
                                 }
+                                OnPropertyChanged(() => Remaining);
                             }
-                            OnPropertyChanged(() => Remaining);
-                        }
-                        if (_remaining <= TimeSpan.FromSeconds(10) && !atoshibaraku)
-                        {
-                            atoshibaraku = true;
-                            OnAtoshibaraku();
-                        }
-                    });
+                            if (_remaining <= TimeSpan.FromSeconds(10) && !_atoshibaraku)
+                            {
+                                _atoshibaraku = true;
+                                OnAtoshibaraku();
+                            }
+                        });
 
-            _startStop = new RelayCommand(() => { isStarted = !isStarted; });
+            _startStop = new RelayCommand(() => { _isStarted = !_isStarted; });
 
             _reset = new RelayCommand<TimeSpan>(
                 t =>
-                {
-                    isStarted = false;
-                    atoshibaraku = false;
-                    matchEnd = false;
-                    _remaining = t;
-                    OnPropertyChanged(() => Remaining);
-                });
+                    {
+                        _isStarted = false;
+                        _atoshibaraku = false;
+                        _matchEnd = false;
+                        _remaining = t;
+                        OnPropertyChanged(() => Remaining);
+                    });
+
+            _delta = new RelayCommand<TimeSpan>(
+                t =>
+                    {
+                        if (_isStarted) return;
+                        _matchEnd = false;
+                        _remaining = _remaining + t;
+                        _atoshibaraku = _remaining > TimeSpan.FromSeconds(10);
+                        OnPropertyChanged(() => Remaining);
+                    },
+                t => !_isStarted);
         }
+
+        #region IStopWatch Members
 
         public ICommand Reset
         {
@@ -87,9 +101,16 @@ namespace KarateSemaphore
             get { return _remaining; }
         }
 
+        public ICommand Delta
+        {
+            get { return _delta; }
+        }
+
         public event EventHandler Atoshibaraku = delegate { };
 
         public event EventHandler MatchEnd = delegate { };
+
+        #endregion
 
         /// <summary>
         ///   Raises the <see cref="Atoshibaraku" /> event.
@@ -110,7 +131,7 @@ namespace KarateSemaphore
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (disposed)
+            if (_disposed)
             {
                 return;
             }
@@ -120,7 +141,7 @@ namespace KarateSemaphore
             {
                 _timeObserver.Dispose();
             }
-            disposed = true;
+            _disposed = true;
         }
     }
 }

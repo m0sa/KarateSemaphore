@@ -53,6 +53,15 @@ namespace KarateSemaphore.UnitTests
             _instance.StartStop.Execute(null);
         }
 
+        protected void Delta(int seconds)
+        {
+            var parameter = TimeSpan.FromSeconds(seconds);
+            if (_instance.Delta.CanExecute(parameter))
+            {
+                _instance.Delta.Execute(parameter);
+            }
+        }
+
         [Test]
         public void When_reset_dont_progress()
         {
@@ -139,6 +148,31 @@ namespace KarateSemaphore.UnitTests
             _scheduler.AdvanceBy(65);
 
             Assert.That(eventCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void After_completed_and_minus_delta_can_be_completed_again()
+        {
+            var eventCount = 0;
+            _instance.MatchEnd += (s, e) => eventCount++;
+            StartStop();
+            _scheduler.AdvanceBy(60);
+            StartStop();
+            Delta(-1);
+            StartStop();
+            _scheduler.AdvanceBy(1);
+
+            Assert.That(eventCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Cannot_execute_Delta_when_running()
+        {
+            StartStop(); // running
+
+            var result = _instance.Delta.CanExecute(TimeSpan.FromSeconds(1));
+
+            Assert.IsFalse(result);
         }
 
         public class And_one_match_was_completed : Given_a_StopWatchViewModel_and_an_one_minute_interval

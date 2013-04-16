@@ -14,6 +14,11 @@ namespace KarateSemaphore
         ///   Gets the command for toggling the start and paused state of the stopwatch.
         /// </summary>
         ICommand StartStop { get; }
+        
+        /// <summary>
+        ///   Gets the command for applying a delta timespan to the <see cref="Remaining"/> timespan.
+        /// </summary>
+        ICommand Delta { get; }
 
         /// <summary>
         ///   Gets the raining time of the current match.
