@@ -1,4 +1,5 @@
 ﻿using System;
+using KarateSemaphore.Core;
 using NUnit.Framework;
 
 namespace KarateSemaphore.UnitTests

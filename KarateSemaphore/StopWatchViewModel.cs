@@ -5,6 +5,7 @@ using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
+using KarateSemaphore.Core;
 
 #endregion
 
@@ -80,6 +81,7 @@ namespace KarateSemaphore
                         _remaining = _remaining + t;
                         _atoshibaraku = _remaining > TimeSpan.FromSeconds(10);
                         OnPropertyChanged(() => Remaining);
+                        CommandManagerProvider.Instance.InvalidateRequerySuggested();
                     },
                 t => !_isStarted);
         }

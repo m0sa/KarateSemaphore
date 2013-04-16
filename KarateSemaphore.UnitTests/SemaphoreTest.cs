@@ -3,7 +3,8 @@
 using System;
 using System.Linq;
 using System.Windows.Input;
-using KarateSemaphore.Events;
+using KarateSemaphore.Core;
+using KarateSemaphore.Core.Events;
 using NSubstitute;
 using NUnit.Framework;
 

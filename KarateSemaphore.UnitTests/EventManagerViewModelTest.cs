@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using KarateSemaphore.Events;
-
+using KarateSemaphore.Core.Events;
 using NSubstitute;
 
 using NUnit.Framework;

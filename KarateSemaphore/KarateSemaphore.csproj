@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KarateSemaphore</RootNamespace>
     <AssemblyName>KarateSemaphore</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -56,6 +57,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -65,6 +67,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -93,10 +96,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -105,6 +110,7 @@
     <Reference Include="System.Reactive">
       <HintPath>..\packages\Rx-Main.1.0.11226\lib\Net4\System.Reactive.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -121,25 +127,9 @@
     </ApplicationDefinition>
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="AssemblyBasedApplicationInfo.cs" />
-    <Compile Include="Belt.cs" />
     <Compile Include="ClickOnceApplicationInfo.cs" />
-    <Compile Include="DisplayTextEditorViewModel.cs" />
-    <Compile Include="Events\ChangeDisplayTextSettingsEvent.cs" />
-    <Compile Include="Events\EventManagerViewModel.cs" />
-    <Compile Include="Events\AwardEvent.cs" />
-    <Compile Include="Events\PenaltyEvent.cs" />
-    <Compile Include="Events\KnockdownEvent.cs" />
-    <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Events\IEventManager.cs" />
-    <Compile Include="Events\TimestampedEvent.cs" />
-    <Compile Include="Award.cs" />
-    <Compile Include="ICompetitor.cs" />
-    <Compile Include="IDisplayTextSettings.cs" />
-    <Compile Include="IModalDialogManager.cs" />
     <Compile Include="IApplicationInfo.cs" />
-    <Compile Include="ISemaphore.cs" />
     <Compile Include="ISettings.cs" />
-    <Compile Include="IStopWatch.cs" />
     <Compile Include="ModalWindow.xaml.cs">
       <DependentUpon>ModalWindow.xaml</DependentUpon>
     </Compile>
@@ -149,7 +139,6 @@
     <Compile Include="Views\CompetitorControllerView.xaml.cs">
       <DependentUpon>CompetitorControllerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CompetitorViewModel.cs" />
     <Compile Include="Views\ControllerWindow.xaml.cs">
       <DependentUpon>ControllerWindow.xaml</DependentUpon>
     </Compile>
@@ -166,25 +155,20 @@
       <DependentUpon>SemaphoreViewInverse.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MinutesSecondsConverter.cs" />
-    <Compile Include="Penalty.cs" />
     <Compile Include="Views\PenaltyDisplayControl.xaml.cs">
       <DependentUpon>PenaltyDisplayControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ReflectionHelper.cs" />
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="Views\SemaphoreControllerView.xaml.cs">
       <DependentUpon>SemaphoreControllerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SemaphoreView.xaml.cs">
       <DependentUpon>SemaphoreView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SemaphoreViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StopWatchViewModel.cs" />
-    <Compile Include="ViewModelBase.cs" />
     <Compile Include="Views\TernaryConverter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -273,9 +257,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -293,6 +277,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KarateSemaphore.Core\KarateSemaphore.Core.csproj">
+      <Project>{64c9c4f7-c9d3-46e0-8a9b-90675a5822ae}</Project>
+      <Name>KarateSemaphore.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

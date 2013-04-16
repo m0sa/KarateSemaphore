@@ -1,4 +1,5 @@
-using KarateSemaphore.Events;
+using KarateSemaphore.Core;
+using KarateSemaphore.Core.Events;
 using NSubstitute;
 using NUnit.Framework;
 

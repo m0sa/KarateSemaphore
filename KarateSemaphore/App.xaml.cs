@@ -10,7 +10,8 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using KarateSemaphore.Events;
+using KarateSemaphore.Core;
+using KarateSemaphore.Core.Events;
 
 #endregion
 
