@@ -1,15 +1,12 @@
-#region
-
 using System;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Windows.Input;
 using System.Windows.Threading;
-using KarateSemaphore.Core;
 
-#endregion
-
-namespace KarateSemaphore
+namespace KarateSemaphore.Core
 {
     /// <summary>
     ///   A view model for the stopwatch functionality.
@@ -20,6 +17,7 @@ namespace KarateSemaphore
         private readonly RelayCommand<TimeSpan> _reset;
         private readonly RelayCommand _startStop;
         private readonly IDisposable _timeObserver;
+        private readonly SynchronizationContext _synchronizationContext;
         private bool _atoshibaraku;
         private bool _disposed;
         private bool _isStarted;
@@ -31,8 +29,8 @@ namespace KarateSemaphore
         ///   Creates a new instance of the <see cref="StopWatchViewModel" /> class.
         /// </summary>
         /// <param name="time"> An source of time events. </param>
-        public StopWatchViewModel(IObservable<DateTime> time)
-        {
+        public StopWatchViewModel(IObservable<DateTime> time) {
+            _synchronizationContext = SynchronizationContext.Current;
             _timeObserver = time
                 .ObserveOn(Scheduler.CurrentThread) // observe on the GUI thread!
                 .Subscribe(
@@ -119,7 +117,7 @@ namespace KarateSemaphore
         /// </summary>
         private void OnAtoshibaraku()
         {
-            Dispatcher.CurrentDispatcher.Invoke(Atoshibaraku, this, EventArgs.Empty);
+            _synchronizationContext.Send(_ => Atoshibaraku(this, EventArgs.Empty), null);
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace KarateSemaphore
         /// </summary>
         private void OnMatchEnd()
         {
-            Dispatcher.CurrentDispatcher.Invoke(MatchEnd, this, EventArgs.Empty);
+            _synchronizationContext.Send(_ => MatchEnd(this, EventArgs.Empty), null);
         }
 
         protected override void Dispose(bool disposing)

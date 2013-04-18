@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reactive.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -10,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using KarateSemaphore.Core;
+using KarateSemaphore.Core.Events;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
@@ -135,6 +140,16 @@ namespace KarateSemaphore.Phone
 
             // Remove this handler since it is no longer needed
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
+            
+            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Deployment.Current.Dispatcher));
+            var eventManager = new EventManagerViewModel();
+            var time = Observable.Interval(TimeSpan.FromMilliseconds(142)).Select(x => DateTime.Now);
+            var stopWatch = new StopWatchViewModel(time);
+            stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
+            var aka = new CompetitorViewModel(Belt.Aka, eventManager);
+            var ao = new CompetitorViewModel(Belt.Ao, eventManager);
+            var vm = new SemaphoreViewModel(stopWatch, eventManager, null, aka, ao);
+            RootFrame.DataContext = vm;
         }
 
         #endregion

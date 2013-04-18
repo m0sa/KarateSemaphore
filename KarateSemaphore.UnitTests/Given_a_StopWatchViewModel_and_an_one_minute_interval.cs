@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using System.Reactive;
+using KarateSemaphore.Core;
 using Microsoft.Reactive.Testing;
 using NUnit.Framework;
 

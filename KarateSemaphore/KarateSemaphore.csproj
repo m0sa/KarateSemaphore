@@ -97,11 +97,13 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>DESKTOP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>DESKTOP</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -125,6 +127,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\KarateSemaphore.Core\StopWatchViewModel.cs">
+      <Link>StopWatchViewModel.cs</Link>
+    </Compile>
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="AssemblyBasedApplicationInfo.cs" />
     <Compile Include="ClickOnceApplicationInfo.cs" />
@@ -168,7 +173,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="StopWatchViewModel.cs" />
     <Compile Include="Views\TernaryConverter.cs" />
   </ItemGroup>
   <ItemGroup>

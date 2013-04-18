@@ -6,20 +6,30 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:KarateSemaphore.Phone"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:ei="clr-namespace:Microsoft.Expression.Interactivity.Media;assembly=Microsoft.Expression.Interactions"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Landscape"
-    shell:SystemTray.IsVisible="True">
+    SupportedOrientations="Landscape" Orientation="Landscape"
+    shell:SystemTray.IsVisible="False">
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar Mode="Minimized" IsMenuEnabled="True">
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Knockdown" />
-                <shell:ApplicationBarMenuItem Text="Reset" />
-                <shell:ApplicationBarMenuItem Text="-" IsEnabled="False"/>
-                <shell:ApplicationBarMenuItem Text="Configure" />
-            </shell:ApplicationBar.MenuItems>
+        <shell:ApplicationBar Opacity="0.5" Mode="Minimized" IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton
+                Click="MenuSettings"
+                IconUri="/Images/feature.settings.png"
+                Text="Settings" IsEnabled="True"/>
+            <shell:ApplicationBarIconButton
+                Click="MenuKnockdown"
+                IconUri="/Images/download.png"
+                Text="K.O." IsEnabled="True"/>
+            <shell:ApplicationBarIconButton
+                Click="MenuReset"
+                IconUri="/Images/feature.alarm.png"
+                Text="New" IsEnabled="True"/>
+            <shell:ApplicationBarIconButton
+                Click="MenuUndo"
+                IconUri="/Images/back.png"
+                Text="Undo" IsEnabled="True"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -29,9 +39,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0">
+            <view:SemaphoreView></view:SemaphoreView>
+        </Grid>
     </Grid>
  
 </phone:PhoneApplicationPage>

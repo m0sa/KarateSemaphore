@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{44c7a6e6-af79-4a87-a28c-643c5631478d}" Title="KarateSemaphore.Phone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="KarateSemaphore.Phone author" Description="Sample description" Publisher="KarateSemaphore.Phone">
+  <App xmlns="" ProductID="{44c7a6e6-af79-4a87-a28c-643c5631478d}" Title="KarateSemaphore.Phone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="m0sa.net" Description="WKF Kumite Semaphore" Publisher="m0sa.net">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
-      <Capability Name="ID_CAP_GAMERSERVICES"/>
+      <!--<Capability Name="ID_CAP_GAMERSERVICES"/>
       <Capability Name="ID_CAP_IDENTITY_DEVICE"/>
       <Capability Name="ID_CAP_IDENTITY_USER"/>
       <Capability Name="ID_CAP_LOCATION"/>
@@ -17,7 +17,7 @@
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT"/>
       <Capability Name="ID_CAP_ISV_CAMERA"/>
       <Capability Name="ID_CAP_CONTACTS"/>
-      <Capability Name="ID_CAP_APPOINTMENTS"/>
+      <Capability Name="ID_CAP_APPOINTMENTS"/>-->
     </Capabilities>
     <Tasks>
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
@@ -27,7 +27,7 @@
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>KarateSemaphore.Phone</Title>
+          <Title>KarateSemaphore</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

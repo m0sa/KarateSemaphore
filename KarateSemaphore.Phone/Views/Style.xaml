@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="aka" Color="#FFFF1100" />
+    <SolidColorBrush x:Key="ao" Color="#FF0687FF" />
+    <SolidColorBrush x:Key="panelBackground" Color="#000000" />
+    <SolidColorBrush x:Key="panelForeground" Color="#FFFFFF" />
+    <Style TargetType="TextBlock" x:Key="panelText">
+        <Setter Property="Foreground" Value="{StaticResource ResourceKey=panelForeground}" />
+        <Setter Property="FontFamily" Value="./#NI7SEG" />
+    </Style>
+</ResourceDictionary>

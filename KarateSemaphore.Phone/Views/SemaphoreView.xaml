@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="KarateSemaphore.Phone.SemaphoreView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"   
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:vm="clr-namespace:KarateSemaphore.Phone"
+        xmlns:core="clr-namespace:KarateSemaphore.Core;assembly=KarateSemaphore.Core" mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance core:SemaphoreViewModel, IsDesignTimeCreatable=True}"
+        d:DesignHeight="300" d:DesignWidth="582">
+    <UserControl.Triggers>
+    </UserControl.Triggers>
+    <Grid>
+        <vm:SemaphoreViewInverse x:Name="previewInverse" Grid.Column="2" Margin="5" />
+        <vm:SemaphoreViewNormal x:Name="previewNormal" Grid.Column="2" Margin="5" />
+    </Grid>
+</UserControl>

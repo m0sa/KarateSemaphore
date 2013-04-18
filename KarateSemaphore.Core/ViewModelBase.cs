@@ -14,35 +14,40 @@ namespace KarateSemaphore.Core
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
+        private readonly SynchronizationContext _synchronizationContext;
+
+        protected ViewModelBase() {
+            _synchronizationContext = SynchronizationContext.Current;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        protected void OnPropertyChanged<T>(Expression<Func<T>> property)
-        {
+        protected SynchronizationContext SynchronizationContext {
+            get { return _synchronizationContext; }
+        }
+
+        protected void OnPropertyChanged<T>(Expression<Func<T>> property) {
             OnPropertyChanged(ReflectionHelper.GetPropertyName(property));
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            SynchronizationContext.Current.Post(args => 
-                PropertyChanged(this, (PropertyChangedEventArgs)args), 
+        protected virtual void OnPropertyChanged(string propertyName) {
+            SynchronizationContext.Post(args =>
+                PropertyChanged(this, (PropertyChangedEventArgs) args),
                 new PropertyChangedEventArgs(propertyName));
         }
 
         #region IDisposable
 
-        ~ViewModelBase()
-        {
+        ~ViewModelBase() {
             Dispose(false);
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
+        protected virtual void Dispose(bool disposing) {
         }
 
         #endregion

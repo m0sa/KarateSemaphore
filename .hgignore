@@ -9,3 +9,4 @@ packages/*
 *.gpState
 */publish/*
 KarateSemaphore.1.2.dotCover
+*/Bin/*
