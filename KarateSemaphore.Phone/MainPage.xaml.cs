@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -19,20 +20,32 @@ namespace KarateSemaphore.Phone
         // Constructor
         public MainPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
         }
-        private ISemaphore Semaphore {
+
+        private ISemaphore Semaphore
+        {
             get { return DataContext as ISemaphore; }
         }
 
-        private void InvokeCommand(ICommand command, object parameter = null) {
-            if (command.CanExecute(parameter)) {
+        private void InvokeCommand(ICommand command, object parameter = null)
+        {
+            if (command.CanExecute(parameter))
+            {
                 command.Execute(parameter);
             }
         }
 
-        private void MenuSettings(object sender, EventArgs e) {
+        private void MenuSettings(object sender, EventArgs e)
+        {
         }
 
         private void MenuKnockdown(object sender, EventArgs e)
@@ -40,11 +53,13 @@ namespace KarateSemaphore.Phone
             InvokeCommand(Semaphore.ToggleKnockdownMode);
         }
 
-        private void MenuReset(object sender, EventArgs e) {
+        private void MenuReset(object sender, EventArgs e)
+        {
             InvokeCommand(Semaphore.Reset);
         }
 
-        private void MenuUndo(object sender, EventArgs e) {
+        private void MenuUndo(object sender, EventArgs e)
+        {
             Semaphore.EventManager.Undo(1);
         }
     }

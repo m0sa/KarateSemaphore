@@ -52,6 +52,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Observable" />
     <Reference Include="System.Reactive.Core">
@@ -87,24 +90,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\PenaltyDisplayControl.xaml.cs">
       <DependentUpon>PenaltyDisplayControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PenaltyDisplayItem.xaml.cs">
-      <DependentUpon>PenaltyDisplayItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\PointControl.xaml.cs">
       <DependentUpon>PointControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\SemaphoreView.xaml.cs">
       <DependentUpon>SemaphoreView.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\SemaphoreViewInverse.xaml.cs">
       <DependentUpon>SemaphoreViewInverse.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\SemaphoreViewNormal.xaml.cs">
       <DependentUpon>SemaphoreViewNormal.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\TimeControl.xaml.cs">
       <DependentUpon>TimeControl.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +122,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PenaltyDisplayItem.xaml">
+    <Page Include="Views\PenaltyDisplayControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,24 +131,20 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SemaphoreView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SemaphoreViewInverse.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SemaphoreViewNormal.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PenaltyDisplayControl.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Style.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TimeControl.xaml">
       <SubType>Designer</SubType>
@@ -151,11 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <Resource Include="Views\Ni7seg.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -169,7 +172,14 @@
     <Content Include="Images\feature.alarm.png" />
     <Content Include="Images\feature.settings.png" />
     <Content Include="Images\sync.png" />
+    <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
+    <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+    <Content Include="Views\Ni7seg.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KarateSemaphore.Core\KarateSemaphore.Core.csproj">

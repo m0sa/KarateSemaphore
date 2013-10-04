@@ -4,19 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:KarateSemaphore.Phone"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+             xmlns:core="clr-namespace:KarateSemaphore.Core;assembly=KarateSemaphore.Core"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="200">    
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+             d:DataContext="{d:DesignInstance core:SemaphoreViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="50" d:DesignWidth="200" Name="ctrl">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <CompositeTransform ScaleX="{Binding LTR, ElementName=ctrl, Converter={StaticResource LTRConverter}, ConverterParameter='scale'}"/>
+        </Grid.RenderTransform>
+        <toolkit:Rating  Value="{Binding Penalty, ElementName=ctrl, Converter={StaticResource PenaltyToIntConverter}, Mode=TwoWay}" ReadOnly="True"  RatingItemCount="4"/>
+        <toolkit:Rating Name="rating" RatingItemCount="4" ValueChanged="PenaltyChanged" Foreground="Transparent" Background="Transparent">
+            <toolkit:Rating.FilledItemStyle>
+                <Style TargetType="toolkit:RatingItem">
+                    <Setter Property="Foreground" Value="Transparent"></Setter>
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                </Style>
+            </toolkit:Rating.FilledItemStyle>
+            <toolkit:Rating.UnfilledItemStyle>
+                <Style TargetType="toolkit:RatingItem">
+                    <Setter Property="Foreground" Value="Transparent"></Setter>
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                </Style>
+            </toolkit:Rating.UnfilledItemStyle>
+        </toolkit:Rating>
 
-        <view:PenaltyDisplayItem x:Name="ctrl1" Grid.Column="0" Grid.Row="0" />
-        <view:PenaltyDisplayItem  x:Name="ctrl2" Grid.Column="1" Grid.Row="0" />
-        <view:PenaltyDisplayItem  x:Name="ctrl3" Grid.Column="2" Grid.Row="0" />
-        <view:PenaltyDisplayItem  x:Name="ctrl4" Grid.Column="3" Grid.Row="0" />
     </Grid>
 </UserControl>
+    

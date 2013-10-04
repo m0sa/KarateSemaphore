@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("KarateSemaphore.Phone")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("m0sa.net")]
 [assembly: AssemblyProduct("KarateSemaphore.Phone")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCopyright("Copyright ©m0sa.net  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

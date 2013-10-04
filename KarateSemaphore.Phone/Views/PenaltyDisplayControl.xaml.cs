@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Interactivity;
 using System.Windows.Shapes;
 using KarateSemaphore.Core;
+using KarateSemaphore.Core.Events;
+using Microsoft.Phone.Controls;
+using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace KarateSemaphore.Phone
 {
@@ -19,37 +26,99 @@ namespace KarateSemaphore.Phone
             set { SetValue(PenaltyProperty, value); }
         }
 
-        public static readonly DependencyProperty PenaltyProperty = DependencyProperty.Register("Penalty", typeof(Penalty), typeof(PenaltyDisplayControl), new PropertyMetadata(Penalty.None, OnPenaltyChanged));
+        public static readonly DependencyProperty PenaltyProperty = DependencyProperty.Register("Penalty", typeof(Penalty), typeof(PenaltyDisplayControl), new PropertyMetadata(Penalty.None));
 
-        private static void OnPenaltyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public bool LTR
         {
-            if (!Enum.IsDefined(typeof (Penalty), e.NewValue)) return;
-            var value = (int)e.NewValue;
-            var instance = AssureThis(d);
-            for (var i = 0; i < instance._controls.Count; i++)
-            {
-                var ctrl = instance._controls[i];
-                ctrl.IsEnabled = i < value;
-            }
+            get { return (bool)GetValue(LTRProperty); }
+            set { SetValue(LTRProperty, value); }
         }
 
-        private static PenaltyDisplayControl AssureThis(DependencyObject d)
+        public static readonly DependencyProperty LTRProperty =
+            DependencyProperty.Register("LTR", typeof(bool), typeof(PenaltyDisplayControl), new PropertyMetadata(false));
+
+
+        public ICommand PenaltyCommand
         {
-            var instance = d as PenaltyDisplayControl;
-            if(instance == null)
-            {
-                throw new InvalidOperationException("Expected a source of same type");
-            }
-            return instance;
+            get { return (ICommand)GetValue(PenaltyCommandProperty); }
+            set { SetValue(PenaltyCommandProperty, value); }
         }
 
-        private readonly List<Control> _controls;
+        // Using a DependencyProperty as the backing store for PenaltyCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PenaltyCommandProperty =
+            DependencyProperty.Register("PenaltyCommand", typeof(ICommand), typeof(PenaltyDisplayControl), new PropertyMetadata(null));
 
         public PenaltyDisplayControl()
         {
             InitializeComponent();
-            _controls = new List<Control> { ctrl1, ctrl2, ctrl3, ctrl4 };
-            _controls.ForEach(x => x.IsEnabled = false);
+        }
+
+        private void PenaltyChanged(object sender, EventArgs e)
+        {
+            var handler = PenaltyCommand;
+            if (handler != null)
+            {
+                var targetPenalty = (Penalty)rating.Value;
+                if (targetPenalty != Penalty)
+                {
+                    handler.Execute(targetPenalty);
+                    var expr = GetBindingExpression(PenaltyProperty);
+                    Penalty = targetPenalty;
+                    BindingOperations.SetBinding(this, PenaltyProperty, expr.ParentBinding);
+                }
+            }
         }
     }
+    
+    public class PenaltyToIntConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return PenaltyToInt((Penalty)value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return IntToPenalty((int)(double)value);
+        }
+
+        private static int PenaltyToInt(Penalty value)
+        {
+            return (int)value;
+        }
+
+        private static Penalty IntToPenalty(int value)
+        {
+            if (Enum.IsDefined(typeof (Penalty), value))
+            {
+                return (Penalty)value;
+            }
+
+            throw new ArgumentOutOfRangeException("value");
+        }
+
+    }
+
+    public class LTRConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var str = parameter + "";
+            if (str == "rotate")
+            {
+                return (bool)value ? 180.0 : 0.0;
+            }
+            if (str == "scale")
+            {
+                return (bool)value ? -1 : 1;
+            }
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+    }
+
 }

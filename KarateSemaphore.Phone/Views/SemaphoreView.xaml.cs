@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using Microsoft.Phone.Controls;
 
 namespace KarateSemaphore.Phone
 {
@@ -33,6 +34,11 @@ namespace KarateSemaphore.Phone
         public SemaphoreView()
         {
             InitializeComponent();
+        }
+
+        private void OnFlick(object sender, FlickGestureEventArgs e)
+        {
+            IsInversed = !IsInversed;
         }
     }
 }

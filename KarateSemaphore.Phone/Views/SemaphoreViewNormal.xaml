@@ -49,9 +49,17 @@
         <view:TimeControl Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3"
                             DataContext="{Binding Time}" />
 
-        <view:PenaltyDisplayControl Grid.Column="1" Grid.Row="2" Penalty="{Binding Path=Aka.C1}"  />
-        <view:PenaltyDisplayControl Grid.Column="1" Grid.Row="3" Penalty="{Binding Path=Aka.C2}"  />
-        <view:PenaltyDisplayControl Grid.Column="3" Grid.Row="2" Penalty="{Binding Path=Ao.C1}" />
-        <view:PenaltyDisplayControl Grid.Column="3" Grid.Row="3" Penalty="{Binding Path=Ao.C2}" />
+        <view:PenaltyDisplayControl Grid.Column="1" Grid.Row="2" LTR="True"
+                                    PenaltyCommand="{Binding Aka.ChangeC1}"
+                                    Penalty="{Binding Path=Aka.C1, Mode=TwoWay}"  />
+        <view:PenaltyDisplayControl Grid.Column="1" Grid.Row="3" LTR="True"
+                                    PenaltyCommand="{Binding Aka.ChangeC2}"
+                                    Penalty="{Binding Path=Aka.C2}"  />
+        <view:PenaltyDisplayControl Grid.Column="3" Grid.Row="2" 
+                                    PenaltyCommand="{Binding Ao.ChangeC1}"
+                                    Penalty="{Binding Path=Ao.C1}" />
+        <view:PenaltyDisplayControl Grid.Column="3" Grid.Row="3" 
+                                    PenaltyCommand="{Binding Ao.ChangeC2}"
+                                    Penalty="{Binding Path=Ao.C2}" />
     </Grid>
 </UserControl>

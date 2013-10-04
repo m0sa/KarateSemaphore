@@ -17,8 +17,11 @@
     </Grid.Resources>
     <Viewbox>
         <TextBlock 
-            Text="{Binding Remaining, Mode=OneWay, StringFormat='mm:ss:ff'}" 
-            Style="{StaticResource ResourceKey=panelText}"/>
+            Style="{StaticResource ResourceKey=panelText}"
+            Text="{Binding 
+                Remaining, 
+                Mode=OneWay, 
+                Converter={StaticResource TimeDisplayConverter}}" />
     </Viewbox>
     <Button Command="{Binding StartStop}" Content="" BorderThickness="0">
   </Button>

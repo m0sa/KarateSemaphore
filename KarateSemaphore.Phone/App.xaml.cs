@@ -95,6 +95,11 @@ namespace KarateSemaphore.Phone
             {
                 // A navigation has failed; break into the debugger
                 System.Diagnostics.Debugger.Break();
+                if (e.Exception != null)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Exception + "");
+                    e.Handled = true;
+                }
             }
         }
 
@@ -105,6 +110,8 @@ namespace KarateSemaphore.Phone
             {
                 // An unhandled exception has occurred; break into the debugger
                 System.Diagnostics.Debugger.Break();
+                System.Diagnostics.Debug.WriteLine(e.ExceptionObject + "");
+                e.Handled = true;
             }
         }
 
@@ -140,8 +147,7 @@ namespace KarateSemaphore.Phone
 
             // Remove this handler since it is no longer needed
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
-            
-            SynchronizationContext.SetSynchronizationContext(new DispatcherSynchronizationContext(Deployment.Current.Dispatcher));
+
             var eventManager = new EventManagerViewModel();
             var time = Observable.Interval(TimeSpan.FromMilliseconds(142)).Select(x => DateTime.Now);
             var stopWatch = new StopWatchViewModel(time);

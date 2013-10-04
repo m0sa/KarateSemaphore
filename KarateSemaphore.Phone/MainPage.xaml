@@ -12,7 +12,7 @@
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     SupportedOrientations="Landscape" Orientation="Landscape"
     shell:SystemTray.IsVisible="False">
-    <phone:PhoneApplicationPage.ApplicationBar>
+   <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Opacity="0.5" Mode="Minimized" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton
                 Click="MenuSettings"
