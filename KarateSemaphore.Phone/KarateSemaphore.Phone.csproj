@@ -185,7 +185,7 @@
     <Content Include="Images\download.png" />
     <Content Include="Images\feature.alarm.png" />
     <Content Include="Images\feature.settings.png" />
-    <Content Include="Images\Karate_Logo_clip_art_small.png" />
+    <Content Include="Images\karate-semaphore.png" />
     <Content Include="Images\sync.png" />
     <Content Include="Images\TitleImg.png" />
     <Content Include="README_FIRST.txt" />
