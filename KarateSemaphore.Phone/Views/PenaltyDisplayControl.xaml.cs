@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Interactivity;
-using System.Windows.Shapes;
 using KarateSemaphore.Core;
-using KarateSemaphore.Core.Events;
-using Microsoft.Phone.Controls;
-using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace KarateSemaphore.Phone
 {
@@ -69,56 +63,4 @@ namespace KarateSemaphore.Phone
             }
         }
     }
-    
-    public class PenaltyToIntConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return PenaltyToInt((Penalty)value);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return IntToPenalty((int)(double)value);
-        }
-
-        private static int PenaltyToInt(Penalty value)
-        {
-            return (int)value;
-        }
-
-        private static Penalty IntToPenalty(int value)
-        {
-            if (Enum.IsDefined(typeof (Penalty), value))
-            {
-                return (Penalty)value;
-            }
-
-            throw new ArgumentOutOfRangeException("value");
-        }
-
-    }
-
-    public class LTRConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var str = parameter + "";
-            if (str == "rotate")
-            {
-                return (bool)value ? 180.0 : 0.0;
-            }
-            if (str == "scale")
-            {
-                return (bool)value ? -1 : 1;
-            }
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
-
 }

@@ -7,10 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using KarateSemaphore.Core;
+using Microsoft.Advertising;
 using Microsoft.Phone.Controls;
 
 namespace KarateSemaphore.Phone
@@ -46,6 +48,7 @@ namespace KarateSemaphore.Phone
 
         private void MenuSettings(object sender, EventArgs e)
         {
+            SettingsPopup.Visibility = SettingsPopup.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void MenuKnockdown(object sender, EventArgs e)
@@ -61,6 +64,10 @@ namespace KarateSemaphore.Phone
         private void MenuUndo(object sender, EventArgs e)
         {
             Semaphore.EventManager.Undo(1);
+        }
+
+        private void AdControl_OnErrorOccurred(object sender, AdErrorEventArgs e)
+        {
         }
     }
 }

@@ -35,10 +35,5 @@ namespace KarateSemaphore.Phone
         {
             InitializeComponent();
         }
-
-        private void OnFlick(object sender, FlickGestureEventArgs e)
-        {
-            IsInversed = !IsInversed;
-        }
     }
 }

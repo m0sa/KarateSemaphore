@@ -7,11 +7,8 @@
         xmlns:core="clr-namespace:KarateSemaphore.Core;assembly=KarateSemaphore.Core"
         xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
         mc:Ignorable="d" 
-        d:DataContext="{d:DesignInstance core:SemaphoreViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance core:SemaphoreViewModel, IsDesignTimeCreatable=False}"
         d:DesignHeight="300" d:DesignWidth="582">
-    <toolkit:GestureService.GestureListener>
-        <toolkit:GestureListener Flick="OnFlick"/>
-    </toolkit:GestureService.GestureListener>
     <Grid>
         <vm:SemaphoreViewInverse x:Name="previewInverse" Grid.Column="2" Margin="5" />
         <vm:SemaphoreViewNormal x:Name="previewNormal" Grid.Column="2" Margin="5" />

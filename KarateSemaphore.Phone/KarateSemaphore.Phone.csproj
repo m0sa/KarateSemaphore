@@ -50,12 +50,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Coding4Fun.Toolkit.Controls">
+      <HintPath>..\packages\Coding4Fun.Toolkit.Controls.2.0.7\lib\wp71\Coding4Fun.Toolkit.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Advertising.Mobile.UI, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Expression.Interactions, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Observable" />
     <Reference Include="System.Reactive.Core">
       <HintPath>..\packages\Rx-Core.2.1.30214.0\lib\SL4-WindowsPhone71\System.Reactive.Core.dll</HintPath>
@@ -88,10 +94,12 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\LTRConverter.cs" />
     <Compile Include="Views\PenaltyDisplayControl.xaml.cs">
       <DependentUpon>PenaltyDisplayControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\PenaltyToIntConverter.cs" />
     <Compile Include="Views\PointControl.xaml.cs">
       <DependentUpon>PointControl.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -161,6 +169,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\KarateSemaphore\Media\atoshibaraku.wav">
+      <Link>Media\atoshibaraku.wav</Link>
+    </Content>
+    <Content Include="..\KarateSemaphore\Media\end.wav">
+      <Link>Media\end.wav</Link>
+    </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -171,7 +185,9 @@
     <Content Include="Images\download.png" />
     <Content Include="Images\feature.alarm.png" />
     <Content Include="Images\feature.settings.png" />
+    <Content Include="Images\Karate_Logo_clip_art_small.png" />
     <Content Include="Images\sync.png" />
+    <Content Include="Images\TitleImg.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />

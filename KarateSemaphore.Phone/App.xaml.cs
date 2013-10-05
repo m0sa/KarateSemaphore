@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reactive.Linq;
@@ -15,8 +16,11 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using KarateSemaphore.Core;
 using KarateSemaphore.Core.Events;
+using Microsoft.Devices;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace KarateSemaphore.Phone
 {
@@ -46,7 +50,7 @@ namespace KarateSemaphore.Phone
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                // Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -61,33 +65,8 @@ namespace KarateSemaphore.Phone
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
-
-        // Code to execute when the application is launching (eg, from Start)
-        // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is activated (brought to foreground)
-        // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is deactivated (sent to background)
-        // This code will not execute when the application is closing
-        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
-        {
-        }
-
-        // Code to execute when the application is closing (eg, user hit Back)
-        // This code will not execute when the application is deactivated
-        private void Application_Closing(object sender, ClosingEventArgs e)
-        {
-        }
-
+        
         // Code to execute if a navigation fails
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
@@ -134,6 +113,8 @@ namespace KarateSemaphore.Phone
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
+            Initialize();
+
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
         }
@@ -147,17 +128,44 @@ namespace KarateSemaphore.Phone
 
             // Remove this handler since it is no longer needed
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
+        }
 
+
+        #endregion
+
+        private void Initialize()
+        {
             var eventManager = new EventManagerViewModel();
             var time = Observable.Interval(TimeSpan.FromMilliseconds(142)).Select(x => DateTime.Now);
             var stopWatch = new StopWatchViewModel(time);
-            stopWatch.Reset.Execute(TimeSpan.FromMinutes(3));
             var aka = new CompetitorViewModel(Belt.Aka, eventManager);
             var ao = new CompetitorViewModel(Belt.Ao, eventManager);
             var vm = new SemaphoreViewModel(stopWatch, eventManager, null, aka, ao);
+            stopWatch.Reset.Execute(vm.ResetTime);
+            var atoshibaraku = CreatePlayer("Media/atoshibaraku.wav");
+            stopWatch.Atoshibaraku += (s, args) =>
+            {
+                atoshibaraku();
+                VibrateController.Default.Start(TimeSpan.FromMilliseconds(200));
+            };
+            var matchEnd = CreatePlayer("Media/end.wav");
+            stopWatch.MatchEnd += (s, args) =>
+            {
+                matchEnd();
+                VibrateController.Default.Start(TimeSpan.FromMilliseconds(1500));
+            };
             RootFrame.DataContext = vm;
         }
 
-        #endregion
+        private static Action CreatePlayer(string uri)
+        {
+            using (var stream = TitleContainer.OpenStream(uri))
+            {
+                var effect = SoundEffect.FromStream(stream);
+                FrameworkDispatcher.Update();
+                effect.Play(0,0,0); // prebuffer with volume 0
+                return () => effect.Play();
+            }
+        }
     }
 }

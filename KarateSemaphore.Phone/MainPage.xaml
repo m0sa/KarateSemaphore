@@ -9,11 +9,20 @@
     xmlns:view="clr-namespace:KarateSemaphore.Phone"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:ei="clr-namespace:Microsoft.Expression.Interactivity.Media;assembly=Microsoft.Expression.Interactions"
+    xmlns:core="clr-namespace:KarateSemaphore.Core;assembly=KarateSemaphore.Core"
+    xmlns:controls="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    d:DataContext="{d:DesignInstance core:SemaphoreViewModel, IsDesignTimeCreatable=False}"
     SupportedOrientations="Landscape" Orientation="Landscape"
     shell:SystemTray.IsVisible="False">
-   <phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Opacity="0.5" Mode="Minimized" IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton
+                Click="MenuReset"
+                IconUri="/Images/feature.alarm.png"
+                Text="New" IsEnabled="True"/>
             <shell:ApplicationBarIconButton
                 Click="MenuSettings"
                 IconUri="/Images/feature.settings.png"
@@ -22,10 +31,6 @@
                 Click="MenuKnockdown"
                 IconUri="/Images/download.png"
                 Text="K.O." IsEnabled="True"/>
-            <shell:ApplicationBarIconButton
-                Click="MenuReset"
-                IconUri="/Images/feature.alarm.png"
-                Text="New" IsEnabled="True"/>
             <shell:ApplicationBarIconButton
                 Click="MenuUndo"
                 IconUri="/Images/back.png"
@@ -38,11 +43,50 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Storyboard x:Key="hideSettings">
+                <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetName="SettingsPopup" Storyboard.TargetProperty="Visibility">
+                    <DiscreteObjectKeyFrame KeyTime="0">
+                        <DiscreteObjectKeyFrame.Value>
+                            <Visibility>Collapsed</Visibility>
+                        </DiscreteObjectKeyFrame.Value>
+                    </DiscreteObjectKeyFrame>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0">
-            <view:SemaphoreView></view:SemaphoreView>
+            <view:SemaphoreView x:Name="SemaphoreView" />
+            <Border x:Name="SettingsPopup" Visibility="Collapsed">
+                <Grid>
+                    <Border Background="{StaticResource PhoneInverseBackgroundBrush}" Opacity="0.3" />
+                    <Border Margin="20,20,100,20" Background="{StaticResource PhoneBackgroundBrush}" Opacity="1">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="Auto"/>
+                                <RowDefinition  Height="Auto"/>
+                                <RowDefinition  Height="*"/>
+                                <RowDefinition  Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <controls:TimeSpanPicker Grid.Row="0" Header="New match duration"  Value="{Binding ResetTime, Mode=TwoWay}" Min="00:00:10" Max="00:10:00" Step="00:00:05" ValueStringFormat="{}{0:mm}:{0:ss}"></controls:TimeSpanPicker>
+
+                            <toolkit:ToggleSwitch Grid.Row="1" Header="Flip orientation" IsChecked="{Binding IsInversed, ElementName=SemaphoreView, Mode=TwoWay}" />
+                            <ads:AdControl Grid.Row="2" Height="80" Width="480" ApplicationId="test_client" AdUnitId="Image480_80" IsAutoRefreshEnabled="True" IsAutoCollapseEnabled="False" ErrorOccurred="AdControl_OnErrorOccurred" />
+
+                            <!--<Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Save defaults"/>-->
+                            <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Done">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Tap">
+                                        <ei:ControlStoryboardAction Storyboard="{StaticResource hideSettings}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
- 
+
 </phone:PhoneApplicationPage>
