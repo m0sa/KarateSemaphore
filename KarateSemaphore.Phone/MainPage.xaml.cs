@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using KarateSemaphore.Core;
 using Microsoft.Advertising;
-using Microsoft.Phone.Controls;
 
 namespace KarateSemaphore.Phone
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class MainPage
     {
         // Constructor
         public MainPage()
@@ -27,6 +17,7 @@ namespace KarateSemaphore.Phone
             {
                 InitializeComponent();
                 settingsAd.CountryOrRegion = RegionInfo.CurrentRegion.TwoLetterISORegionName;
+                SemaphoreView.IsInversed = App.Settings.FlipOrientation;
             }
             catch (Exception ex)
             {
@@ -71,10 +62,11 @@ namespace KarateSemaphore.Phone
         private void AdControl_OnErrorOccurred(object sender, AdErrorEventArgs e)
         {
         }
-    }
 
-    public class SettingsViewModel : DependencyObject
-    {
-
+        private void SaveSettings(object sender, RoutedEventArgs e)
+        {
+            App.Settings.MatchTime = Semaphore.ResetTime;
+            App.Settings.FlipOrientation = SemaphoreView.IsInversed;
+        }
     }
 }

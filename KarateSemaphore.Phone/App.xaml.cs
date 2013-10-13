@@ -130,6 +130,7 @@ namespace KarateSemaphore.Phone
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
         }
 
+        public static readonly Settings Settings = new Settings();
 
         #endregion
 
@@ -141,6 +142,7 @@ namespace KarateSemaphore.Phone
             var aka = new CompetitorViewModel(Belt.Aka, eventManager);
             var ao = new CompetitorViewModel(Belt.Ao, eventManager);
             var vm = new SemaphoreViewModel(stopWatch, eventManager, null, aka, ao);
+            vm.ResetTime = Settings.MatchTime;
             stopWatch.Reset.Execute(vm.ResetTime);
             var atoshibaraku = CreatePlayer("Media/atoshibaraku.wav");
             stopWatch.Atoshibaraku += (s, args) =>

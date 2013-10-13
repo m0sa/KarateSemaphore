@@ -76,7 +76,7 @@
                             <ads:AdControl Name="settingsAd" Grid.Row="2" Height="80" Width="480" ApplicationId="f2f08906-4723-4fdf-9eae-cd1e3af5698b" AdUnitId="147050" IsAutoRefreshEnabled="True" IsAutoCollapseEnabled="False" ErrorOccurred="AdControl_OnErrorOccurred" />
 
                             <!--<Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Save defaults"/>-->
-                            <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Done">
+                            <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Done" Click="SaveSettings">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Tap">
                                         <ei:ControlStoryboardAction Storyboard="{StaticResource hideSettings}"/>
