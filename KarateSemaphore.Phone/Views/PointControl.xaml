@@ -64,6 +64,11 @@
                     </DiscreteObjectKeyFrame>
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
+            <Style TargetType="Button">
+                <Setter Property="BorderBrush" Value="White" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
         </Grid.Resources>
 
 
@@ -80,7 +85,7 @@
             </Button>
         </Grid>
         <StackPanel x:Name="awardPopup" Visibility="Collapsed" Width="Auto" HorizontalAlignment="Stretch">
-            <Button Content="1" Command="{Binding ChangePoints}">
+            <Button Content="Yuko" Command="{Binding ChangePoints}">
                 <Button.CommandParameter><core:Award>Yuko</core:Award></Button.CommandParameter>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
@@ -88,7 +93,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
-            <Button Content="2" Command="{Binding ChangePoints}">
+            <Button Content="Waza-ari" Command="{Binding ChangePoints}">
                 <Button.CommandParameter><core:Award>WazaAri</core:Award></Button.CommandParameter>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
@@ -96,7 +101,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
-            <Button Content="3" Command="{Binding ChangePoints}">
+            <Button Content="Ippon" Command="{Binding ChangePoints}">
                 <Button.CommandParameter><core:Award>Ippon</core:Award></Button.CommandParameter>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">

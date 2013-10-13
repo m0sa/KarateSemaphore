@@ -20,8 +20,21 @@
         <Grid.RenderTransform>
             <CompositeTransform ScaleX="{Binding LTR, ElementName=ctrl, Converter={StaticResource LTRConverter}, ConverterParameter='scale'}"/>
         </Grid.RenderTransform>
-        <toolkit:Rating  Value="{Binding Penalty, ElementName=ctrl, Converter={StaticResource PenaltyToIntConverter}, Mode=TwoWay}" ReadOnly="True"  RatingItemCount="4"/>
-        <toolkit:Rating Name="rating" RatingItemCount="4" ValueChanged="PenaltyChanged" Foreground="Transparent" Background="Transparent">
+        <toolkit:Rating AllowHalfItemIncrement="False" AllowSelectingZero="True" Value="{Binding Penalty, ElementName=ctrl, Converter={StaticResource PenaltyToIntConverter}, Mode=TwoWay}" ReadOnly="True"  RatingItemCount="4" Background="Black">
+            <toolkit:Rating.FilledItemStyle>
+                <Style TargetType="toolkit:RatingItem">
+                    <Setter Property="Foreground" Value="Yellow"></Setter>
+                    <Setter Property="Background" Value="Yellow"></Setter>
+                </Style>
+            </toolkit:Rating.FilledItemStyle>
+            <toolkit:Rating.UnfilledItemStyle>
+                <Style TargetType="toolkit:RatingItem">
+                    <Setter Property="Foreground" Value="LightGray"></Setter>
+                    <Setter Property="Background" Value="LightGray"></Setter>
+                </Style>
+            </toolkit:Rating.UnfilledItemStyle>
+        </toolkit:Rating>
+        <toolkit:Rating AllowHalfItemIncrement="False" AllowSelectingZero="True" Name="rating" RatingItemCount="4" ValueChanged="PenaltyChanged" Foreground="Transparent" Background="Transparent">
             <toolkit:Rating.FilledItemStyle>
                 <Style TargetType="toolkit:RatingItem">
                     <Setter Property="Foreground" Value="Transparent"></Setter>

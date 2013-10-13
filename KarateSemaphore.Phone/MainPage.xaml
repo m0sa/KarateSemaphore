@@ -14,11 +14,12 @@
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:ads="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    Margin="0" Padding="0" BorderThickness="0"
     d:DataContext="{d:DesignInstance core:SemaphoreViewModel, IsDesignTimeCreatable=False}"
     SupportedOrientations="Landscape" Orientation="Landscape"
     shell:SystemTray.IsVisible="False">
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar Opacity="0.5" Mode="Minimized" IsMenuEnabled="False">
+        <shell:ApplicationBar Opacity="0.6" Mode="Minimized" IsMenuEnabled="False">
             <shell:ApplicationBarIconButton
                 Click="MenuReset"
                 IconUri="/Images/feature.alarm.png"
@@ -38,7 +39,7 @@
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Black" Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
