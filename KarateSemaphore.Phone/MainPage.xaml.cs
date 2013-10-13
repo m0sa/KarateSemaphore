@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -25,6 +26,7 @@ namespace KarateSemaphore.Phone
             try
             {
                 InitializeComponent();
+                settingsAd.CountryOrRegion = RegionInfo.CurrentRegion.TwoLetterISORegionName;
             }
             catch (Exception ex)
             {
@@ -69,5 +71,10 @@ namespace KarateSemaphore.Phone
         private void AdControl_OnErrorOccurred(object sender, AdErrorEventArgs e)
         {
         }
+    }
+
+    public class SettingsViewModel : DependencyObject
+    {
+
     }
 }

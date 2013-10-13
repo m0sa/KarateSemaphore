@@ -73,7 +73,7 @@
                             <controls:TimeSpanPicker Grid.Row="0" Header="New match duration"  Value="{Binding ResetTime, Mode=TwoWay}" Min="00:00:10" Max="00:10:00" Step="00:00:05" ValueStringFormat="{}{0:mm}:{0:ss}"></controls:TimeSpanPicker>
 
                             <toolkit:ToggleSwitch Grid.Row="1" Header="Flip orientation" IsChecked="{Binding IsInversed, ElementName=SemaphoreView, Mode=TwoWay}" />
-                            <ads:AdControl Grid.Row="2" Height="80" Width="480" ApplicationId="test_client" AdUnitId="Image480_80" IsAutoRefreshEnabled="True" IsAutoCollapseEnabled="False" ErrorOccurred="AdControl_OnErrorOccurred" />
+                            <ads:AdControl Name="settingsAd" Grid.Row="2" Height="80" Width="480" ApplicationId="f2f08906-4723-4fdf-9eae-cd1e3af5698b" AdUnitId="147050" IsAutoRefreshEnabled="True" IsAutoCollapseEnabled="False" ErrorOccurred="AdControl_OnErrorOccurred" />
 
                             <!--<Button Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Save defaults"/>-->
                             <Button Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="{StaticResource PhoneBackgroundBrush}" Content="Done">
