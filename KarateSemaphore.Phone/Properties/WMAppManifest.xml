@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{44c7a6e6-af79-4a87-a28c-643c5631478d}" Title="Karate Semaphore" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="m0sa.net" Description="WKF Kumite Semaphore" Publisher="m0sa.net" BitsPerPixel="32">
+  <App xmlns="" ProductID="{44c7a6e6-af79-4a87-a28c-643c5631478d}" Title="Karate Semaphore" RuntimeType="Silverlight" Version="1.0.1.0" Genre="apps.normal" Author="m0sa.net" Description="WKF Kumite Semaphore" Publisher="m0sa.net" BitsPerPixel="32">
     <IconPath IsRelative="true" IsResource="false">Images\karate-semaphore.png</IconPath>
     <Capabilities>
       <!--<Capability Name="ID_CAP_GAMERSERVICES"/>
