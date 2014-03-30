@@ -12,7 +12,7 @@ namespace KarateSemaphore.Core
         /// <summary>
         /// Gets or sets the total points.
         /// </summary>
-        int Points { get; set; }
+        decimal Points { get; set; }
 
         /// <summary>
         /// Gets the penalties in the category C1.

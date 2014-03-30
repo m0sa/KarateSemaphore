@@ -6,7 +6,7 @@ namespace KarateSemaphore.Core.Events
     {
         private readonly ICompetitor _competitor;
         private readonly Award _award;
-        private readonly int _initialPoints;
+        private readonly decimal _initialPoints;
 
         public AwardEvent(ICompetitor competitor, Award award)
         {

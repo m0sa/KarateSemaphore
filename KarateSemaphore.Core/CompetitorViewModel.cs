@@ -19,7 +19,7 @@ namespace KarateSemaphore.Core
         private readonly RelayCommand<Award> _changePoints;
         private Penalty _c1;
         private Penalty _c2;
-        private int _points;
+        private decimal _points;
 
         /// <summary>
         ///   Creates a new instance of the <see cref="CompetitorViewModel" /> class.
@@ -55,7 +55,7 @@ namespace KarateSemaphore.Core
             get { return _belt; }
         }
 
-        public int Points
+        public decimal Points
         {
             get { return _points; }
             set

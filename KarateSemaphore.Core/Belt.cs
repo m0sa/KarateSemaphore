@@ -8,13 +8,18 @@ namespace KarateSemaphore.Core
         None = 0,
         
         /// <summary>
-        /// Blue belt color.
+        /// Red belt color.
         /// </summary>
         Aka = 1,
 
         /// <summary>
-        /// Red belt color.
+        /// Blue belt color.
         /// </summary>
-        Ao = 2
+        Ao = 2,
+
+        /// <summary>
+        /// White belt color.
+        /// </summary>
+        Shiro = 3,
     }
 }

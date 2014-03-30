@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using KarateSemaphore.Core;
 using Microsoft.Reactive.Testing;
+using NSubstitute;
 using NUnit.Framework;
 
 #endregion
@@ -17,6 +18,7 @@ namespace KarateSemaphore.UnitTests
         private TestScheduler _scheduler;
         private StopWatchViewModel _instance;
         private TimeSpan _interval;
+        private ICommandManager _commandManager;
 
         public TestScheduler Scheduler
         {
@@ -34,7 +36,8 @@ namespace KarateSemaphore.UnitTests
                     .Range(0, 181)
                     .Select(i => new Recorded<Notification<DateTime>>(i, Notification.CreateOnNext(now.AddSeconds(i))))
                     .ToArray());
-            _instance = new StopWatchViewModel(timeSchedule);
+            _commandManager = Substitute.For<ICommandManager>();
+            _instance = new StopWatchViewModel(timeSchedule, _commandManager);
             _instance.Reset.Execute(_interval);
         }
 

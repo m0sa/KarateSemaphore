@@ -1,9 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using KarateSemaphore.Core;
 using NUnit.Framework;
 
 namespace KarateSemaphore.UnitTests
 {
+
+    public sealed class TestSynchronizationContext : SynchronizationContext
+    {
+        public override void Send(SendOrPostCallback d, object state)
+        {
+            d(state);
+        }
+
+        public override void Post(SendOrPostCallback d, object state)
+        {
+            d(state);
+        }
+    }
+    [SetUpFixture]
+    public class Setup
+    {
+        [SetUp]
+        public void RunBeforeAnyTests()
+        {
+            var ctx = new TestSynchronizationContext();
+            SynchronizationContext.SetSynchronizationContext(ctx);
+        }
+    }
+
+
     [TestFixture]
     public class ViewModelBaseTest
     {

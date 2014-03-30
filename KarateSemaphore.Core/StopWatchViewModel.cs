@@ -29,7 +29,7 @@ namespace KarateSemaphore.Core
         ///   Creates a new instance of the <see cref="StopWatchViewModel" /> class.
         /// </summary>
         /// <param name="time"> An source of time events. </param>
-        public StopWatchViewModel(IObservable<DateTime> time) {
+        public StopWatchViewModel(IObservable<DateTime> time, ICommandManager commandManager) {
             _synchronizationContext = SynchronizationContext.Current;
             _timeObserver = time
                 .ObserveOn(Scheduler.CurrentThread) // observe on the GUI thread!
@@ -79,7 +79,7 @@ namespace KarateSemaphore.Core
                         _remaining = _remaining + t;
                         _atoshibaraku = _remaining > TimeSpan.FromSeconds(10);
                         OnPropertyChanged(() => Remaining);
-                        CommandManagerProvider.Instance.InvalidateRequerySuggested();
+                        commandManager.InvalidateRequerySuggested();
                     },
                 t => !_isStarted);
         }
