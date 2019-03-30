@@ -1,0 +1,12 @@
+_ReSharper.*
+*/obj/*
+*/bin/*
+*.suo
+packages/*
+*.user
+*.DotSettings
+*.gpState
+*/publish/*
+KarateSemaphore.1.2.dotCover
+*/Bin/*
+.vs/
